@@ -36,13 +36,19 @@ class EPPConnection{
      */
     public function readXML(){
         $this->ensureConnection();
-        $lengthData = fread($this->resource,4);
-        if(strlen($lengthData)<4){
+        $lengthBytes = fread($this->resource,4);
+        if(strlen($lengthBytes)!==4){
             return null;
         }
-        $length = unpack('N',$lengthData);
-        $data = fread($this->resource,$length[1]-4);
-        return $data ?? null;
+        $lengthData = unpack('N',$lengthBytes);
+        if(!$lengthData){
+            return null;
+        }
+        $length = $lengthData[1];
+        if($length<0){
+            return null;
+        }
+        return fread($this->resource,$length);
     }
 
     /**
@@ -51,8 +57,7 @@ class EPPConnection{
     public function writeXML($xml){
         $this->ensureConnection();
         $length = strlen($xml)+4;
-        fwrite($this->resource,pack('N',$length));
-        fwrite($this->resource,$xml);
+        fwrite($this->resource,pack('N',$length).$xml);
     }
 
 }
