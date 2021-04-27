@@ -18,10 +18,32 @@ class EPPConnection{
         $this->resource = $resource;
     }
 
+    /**
+     * @param string $data
+     * @return int
+     */
+    private function decodeInteger($data){
+        $int = unpack('N',substr($data,0,4));
+        return $int[1];
+    }
+
+    /**
+     * @param int $data
+     * @return string
+     */
+    private function encodeInteger($data){
+        $int = pack('N',intval($data));
+        return $int;
+    }
+
     private function ensureConnection(){
         if(!$this->isClosed()){
             throw new RuntimeException("Connection closed");
         }
+    }
+
+    public function hasData(){
+        return stream_get_meta_data($this->resource)['unread_bytes']>0;
     }
 
     /**
@@ -36,15 +58,7 @@ class EPPConnection{
      */
     public function readXML(){
         $this->ensureConnection();
-        $lengthBytes = fread($this->resource,4);
-        if(strlen($lengthBytes)!==4){
-            return null;
-        }
-        $lengthData = unpack('N',$lengthBytes);
-        if(!$lengthData){
-            return null;
-        }
-        $length = $lengthData[1];
+        $length = $this->decodeInteger(fread($this->resource,4))-4;
         if($length<0){
             return null;
         }
@@ -57,7 +71,7 @@ class EPPConnection{
     public function writeXML($xml){
         $this->ensureConnection();
         $length = strlen($xml)+4;
-        fwrite($this->resource,pack('N',$length).$xml);
+        fwrite($this->resource,$this->encodeInteger($length).$xml);
     }
 
 }
