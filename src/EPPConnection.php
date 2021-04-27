@@ -19,9 +19,16 @@ class EPPConnection{
     }
 
     private function ensureConnection(){
-        if(!is_resource($this->resource)){
+        if(!$this->isClosed()){
             throw new RuntimeException("Connection closed");
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClosed(){
+        return is_resource($this->resource);
     }
 
     /**
@@ -29,8 +36,12 @@ class EPPConnection{
      */
     public function readXML(){
         $this->ensureConnection();
-        $length = unpack('N',fread($this->resource,4));
-        $data = fread($this->resource,$length[1]);
+        $lengthData = fread($this->resource,4);
+        if(strlen($lengthData)<4){
+            return null;
+        }
+        $length = unpack('N',$lengthData);
+        $data = fread($this->resource,$length[1]-4);
         return $data ?? null;
     }
 
