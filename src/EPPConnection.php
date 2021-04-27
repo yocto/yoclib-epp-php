@@ -37,7 +37,7 @@ class EPPConnection{
     /**
      * @param $xml
      */
-    private function writeXML($xml){
+    public function writeXML($xml){
         $this->ensureConnection();
         $length = strlen($xml);
         fwrite($this->resource,pack('N',$length));
