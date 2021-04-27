@@ -1,0 +1,30 @@
+{
+  "name": "yocto/yoclib-epp",
+  "type": "library",
+  "description": "This yocLibrary enables your project to send and receive with EPP (Extensible Provisioning Protocol) in PHP.",
+  "keywords":[
+	"composer",
+	"epp",
+	"php",
+	"xml",
+	"yocto",
+	"yoclib"
+  ],
+  "license": "GPL-3.0-or-later",
+  "require": {
+	"php": "^7||^8"
+  },
+  "require-dev": {
+	"phpunit/phpunit": "^7||^8||^9"
+  },
+  "autoload": {
+	"psr-4": {
+	  "YOCLIB\\EPP\\": "src/"
+	}
+  },
+  "autoload-dev": {
+	"psr-4": {
+	  "YOCLIB\\EPP\\Tests\\": "tests/"
+	}
+  }
+}
