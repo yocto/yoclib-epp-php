@@ -1,6 +1,7 @@
 <?php
 namespace YOCLIB\EPP;
 
+use DOMDocument;
 use RuntimeException;
 
 class EPPConnection{
@@ -42,15 +43,21 @@ class EPPConnection{
         }
     }
 
-    public function hasData(){
-        return stream_get_meta_data($this->resource)['unread_bytes']>0;
-    }
-
     /**
      * @return bool
      */
     public function isClosed(){
         return is_resource($this->resource);
+    }
+
+    /**
+     * @return DOMDocument|null
+     */
+    public function readEPP(){
+        $doc = new DOMDocument;
+        $xml = $this->readXML();
+        $doc->loadXML($xml);
+        return $doc;
     }
 
     /**
@@ -66,7 +73,15 @@ class EPPConnection{
     }
 
     /**
-     * @param $xml
+     * @param DOMDocument $doc
+     */
+    public function writeEPP($doc){
+        $xml = $doc->saveXML();
+        $this->writeXML($xml);
+    }
+
+    /**
+     * @param string $xml
      */
     public function writeXML($xml){
         $this->ensureConnection();
