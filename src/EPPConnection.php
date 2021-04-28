@@ -4,6 +4,10 @@ namespace YOCLIB\EPP;
 use DOMDocument;
 use RuntimeException;
 
+/**
+ * Class EPPConnection
+ * @package YOCLIB\EPP
+ */
 class EPPConnection{
 
     /**
@@ -20,6 +24,14 @@ class EPPConnection{
     }
 
     /**
+     * Close the connection
+     */
+    public function close(){
+        fclose($this->resource);
+    }
+
+    /**
+     * Decode bytes to 32-bit integer
      * @param string $data
      * @return int
      */
@@ -29,6 +41,7 @@ class EPPConnection{
     }
 
     /**
+     * Encode 32-bit integer to bytes
      * @param int $data
      * @return string
      */
@@ -37,6 +50,9 @@ class EPPConnection{
         return $int;
     }
 
+    /**
+     * Ensure if connection is not closed
+     */
     private function ensureConnection(){
         if(!$this->isClosed()){
             throw new RuntimeException("Connection closed");
@@ -44,6 +60,7 @@ class EPPConnection{
     }
 
     /**
+     * Check if connection is closed
      * @return bool
      */
     public function isClosed(){
@@ -51,9 +68,10 @@ class EPPConnection{
     }
 
     /**
+     * Read DOM
      * @return DOMDocument|null
      */
-    public function readEPP(){
+    public function readDOM(){
         $doc = new DOMDocument;
         $xml = $this->readXML();
         $doc->loadXML($xml);
@@ -61,6 +79,7 @@ class EPPConnection{
     }
 
     /**
+     * Read XML
      * @return string|null
      */
     public function readXML(){
@@ -73,14 +92,16 @@ class EPPConnection{
     }
 
     /**
+     * Write DOM
      * @param DOMDocument $doc
      */
-    public function writeEPP($doc){
+    public function writeDOM($doc){
         $xml = $doc->saveXML();
         $this->writeXML($xml);
     }
 
     /**
+     * Write XML
      * @param string $xml
      */
     public function writeXML($xml){
