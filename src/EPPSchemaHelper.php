@@ -6,14 +6,28 @@ use DOMElement;
 use DOMNamedNodeMap;
 use DOMNodeList;
 
+use YOCLIB\EPP\Schemas\EPP\EPPCommandElement;
 use YOCLIB\EPP\Schemas\EPP\EPPEppElement;
+use YOCLIB\EPP\Schemas\EPP\EPPExtensionElement;
 use YOCLIB\EPP\Schemas\EPP\EPPGreetingElement;
+use YOCLIB\EPP\Schemas\EPP\EPPHelloElement;
+use YOCLIB\EPP\Schemas\EPP\EPPResponseElement;
+use YOCLIB\EPP\Schemas\EPP\EPPResultElement;
 
 class EPPSchemaHelper{
 
+    private const NS_EPP_1_0 = 'urn:ietf:params:xml:ns:epp-1.0';
+
     private const ELEMENTS = [
-        ['urn:ietf:params:xml:ns:epp-1.0','epp',EPPEppElement::class],
-        ['urn:ietf:params:xml:ns:epp-1.0','greeting',EPPGreetingElement::class],
+        [self::NS_EPP_1_0,'epp',EPPEppElement::class],
+
+        [self::NS_EPP_1_0,'greeting',EPPGreetingElement::class],
+        [self::NS_EPP_1_0,'hello',EPPHelloElement::class],
+        [self::NS_EPP_1_0,'command',EPPCommandElement::class],
+        [self::NS_EPP_1_0,'response',EPPResponseElement::class],
+        [self::NS_EPP_1_0,'extension',EPPExtensionElement::class],
+
+        [self::NS_EPP_1_0,'result',EPPResultElement::class],
     ];
 
     private static $collector = [];
