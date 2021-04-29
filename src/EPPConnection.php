@@ -2,6 +2,7 @@
 namespace YOCLIB\EPP;
 
 use DOMDocument;
+use DOMElement;
 use RuntimeException;
 
 /**
@@ -28,6 +29,27 @@ class EPPConnection{
      */
     public function close(){
         fclose($this->resource);
+    }
+
+    /**
+     * Convert document elements
+     * @param DOMDocument $doc
+     */
+    private function convertDOM($doc){
+        $this->convertElement($doc,$doc->documentElement);
+    }
+
+    /**
+     * @param DOMDocument $doc
+     * @param DOMElement $element
+     */
+    private function convertElement($doc,$element){
+        foreach($element->childNodes AS $childNode){
+            if($childNode instanceof DOMElement){
+                $this->convertElement($doc,$childNode);
+            }
+        }
+        EPPSchemaHelper::convertElement($doc,$element);
     }
 
     /**
@@ -75,6 +97,7 @@ class EPPConnection{
         $doc = new DOMDocument;
         $xml = $this->readXML();
         $doc->loadXML($xml);
+        $this->convertDOM($doc);
         return $doc;
     }
 
