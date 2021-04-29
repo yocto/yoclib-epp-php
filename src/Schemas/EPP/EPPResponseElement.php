@@ -6,6 +6,9 @@ use DOMNode;
 
 class EPPResponseElement extends DOMElement{
 
+    /**
+     * @return string|null
+     */
     public function getCodeAttribute(){
         /**@var DOMNode $attribute*/
         foreach($this->attributes AS $attribute){
@@ -16,6 +19,9 @@ class EPPResponseElement extends DOMElement{
         return null;
     }
 
+    /**
+     * @return EPPResultElement|null
+     */
     public function getResultElement(){
         foreach($this->childNodes AS $childNode){
             if($childNode instanceof EPPResultElement){

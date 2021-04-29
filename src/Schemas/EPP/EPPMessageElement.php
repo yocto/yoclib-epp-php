@@ -6,6 +6,9 @@ use DOMNode;
 
 class EPPMessageElement extends DOMElement{
 
+    /**
+     * @return string
+     */
     public function getContent(){
         return $this->nodeValue;
     }

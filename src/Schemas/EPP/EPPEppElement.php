@@ -5,6 +5,9 @@ use DOMElement;
 
 class EPPEppElement extends DOMElement{
 
+    /**
+     * @return EPPGreetingElement|null
+     */
     public function getGreetingElement(){
         foreach($this->childNodes AS $childNode){
             if($childNode instanceof EPPGreetingElement){
@@ -14,6 +17,9 @@ class EPPEppElement extends DOMElement{
         return null;
     }
 
+    /**
+     * @return EPPHelloElement|null
+     */
     public function getHelloElement(){
         foreach($this->childNodes AS $childNode){
             if($childNode instanceof EPPHelloElement){
@@ -23,6 +29,9 @@ class EPPEppElement extends DOMElement{
         return null;
     }
 
+    /**
+     * @return EPPCommandElement|null
+     */
     public function getCommandElement(){
         foreach($this->childNodes AS $childNode){
             if($childNode instanceof EPPCommandElement){
@@ -32,6 +41,9 @@ class EPPEppElement extends DOMElement{
         return null;
     }
 
+    /**
+     * @return EPPResponseElement|null
+     */
     public function getResponseElement(){
         foreach($this->childNodes AS $childNode){
             if($childNode instanceof EPPResponseElement){
@@ -41,6 +53,9 @@ class EPPEppElement extends DOMElement{
         return null;
     }
 
+    /**
+     * @return EPPExtensionElement|null
+     */
     public function getExtensionElement(){
         foreach($this->childNodes AS $childNode){
             if($childNode instanceof EPPExtensionElement){
