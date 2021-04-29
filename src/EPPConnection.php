@@ -33,17 +33,17 @@ class EPPConnection{
 
     /**
      * Convert document elements
-     * @param DOMDocument $doc
-     * @return DOMDocument|null
+     * @param EPPDocument|DOMDocument $doc
+     * @return EPPDocument|DOMDocument|null
      */
     private function convertDOM($doc){
         return $this->convertElement($doc,$doc->documentElement);
     }
 
     /**
-     * @param DOMDocument $doc
+     * @param EPPDocument|DOMDocument $doc
      * @param $element
-     * @return DOMDocument|null
+     * @return EPPDocument|DOMDocument|null
      */
     private function convertElement($doc,$element){
         foreach($element->childNodes AS $childNode){
@@ -93,7 +93,7 @@ class EPPConnection{
 
     /**
      * Read DOM
-     * @return DOMDocument|null
+     * @return EPPDocument|DOMDocument|null
      */
     public function readDOM(){
         $doc = new EPPDocument;
@@ -117,7 +117,7 @@ class EPPConnection{
 
     /**
      * Write DOM
-     * @param DOMDocument $doc
+     * @param EPPDocument|DOMDocument $doc
      */
     public function writeDOM($doc){
         $xml = $doc->saveXML();
