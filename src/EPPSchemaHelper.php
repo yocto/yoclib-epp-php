@@ -82,7 +82,7 @@ class EPPSchemaHelper{
      * @param string $qualifiedName
      * @return DOMElement
      */
-    private static function createElementNS($doc,$class,$namespaceURI,$qualifiedName){
+    public static function createElementNS($doc,$class,$namespaceURI,$qualifiedName){
         $doc->registerNodeClass('DOMElement',$class);
         $elem = $doc->createElementNS($namespaceURI,$qualifiedName);
         $doc->registerNodeClass('DOMElement',null);
@@ -99,6 +99,20 @@ class EPPSchemaHelper{
             $array[] = $childNode;
         }
         return $array;
+    }
+
+    /**
+     * @param string $namespaceURI
+     * @param string $qualifiedName
+     * @return string|null
+     */
+    public static function resolveClassNS($namespaceURI,$qualifiedName){
+        foreach(self::ELEMENTS AS $elem){
+            if($namespaceURI==$elem[0] && $qualifiedName==$elem[1]){
+                return $elem[2];
+            }
+        }
+        return null;
     }
 
 }
