@@ -34,14 +34,16 @@ class EPPConnection{
     /**
      * Convert document elements
      * @param DOMDocument $doc
+     * @return DOMDocument
      */
     private function convertDOM($doc){
-        $this->convertElement($doc,$doc->documentElement);
+        return $this->convertElement($doc,$doc->documentElement);
     }
 
     /**
      * @param DOMDocument $doc
      * @param DOMElement $element
+     * @return DOMDocument
      */
     private function convertElement($doc,$element){
         foreach($element->childNodes AS $childNode){
@@ -49,7 +51,7 @@ class EPPConnection{
                 $this->convertElement($doc,$childNode);
             }
         }
-        EPPSchemaHelper::convertElement($doc,$element);
+        return EPPSchemaHelper::convertElement($doc,$element);
     }
 
     /**
@@ -94,11 +96,10 @@ class EPPConnection{
      * @return DOMDocument|null
      */
     public function readDOM(){
-        $doc = new DOMDocument;
+        $doc = new EPPDocument;
         $xml = $this->readXML();
         $doc->loadXML($xml);
-        $this->convertDOM($doc);
-        return $doc;
+        return $this->convertDOM($doc);
     }
 
     /**

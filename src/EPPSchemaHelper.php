@@ -9,10 +9,11 @@ class EPPSchemaHelper{
     /**
      * Convert Element to custom class
      * @param DOMDocument $doc
-     * @param DOMElement $element
+     * @param DOMElement $node
+     * @return DOMDocument
      */
-    public static function convertElement($doc,$element){
-
+    public static function convertElement($doc,$node){
+        return null;
     }
 
     /**
