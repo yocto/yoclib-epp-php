@@ -18,7 +18,7 @@ class EPPDocument extends DOMDocument{
         return null;
     }
 
-    public function createElementNS($namespaceURI, $qualifiedName,$value=null){
+    public function createNewElementNS($namespaceURI,$qualifiedName){
         return EPPSchemaHelper::createElementNS($this,EPPSchemaHelper::resolveClassNS($namespaceURI,$qualifiedName),$namespaceURI,$qualifiedName);
     }
 
