@@ -11,6 +11,7 @@ use YOCLIB\EPP\Schemas\EPP\EPPEppElement;
 use YOCLIB\EPP\Schemas\EPP\EPPExtensionElement;
 use YOCLIB\EPP\Schemas\EPP\EPPGreetingElement;
 use YOCLIB\EPP\Schemas\EPP\EPPHelloElement;
+use YOCLIB\EPP\Schemas\EPP\EPPMessageElement;
 use YOCLIB\EPP\Schemas\EPP\EPPResponseElement;
 use YOCLIB\EPP\Schemas\EPP\EPPResultElement;
 
@@ -28,6 +29,7 @@ class EPPSchemaHelper{
         [self::NS_EPP_1_0,'extension',EPPExtensionElement::class],
 
         [self::NS_EPP_1_0,'result',EPPResultElement::class],
+        [self::NS_EPP_1_0,'msg',EPPMessageElement::class],
     ];
 
     private static $collector = [];
