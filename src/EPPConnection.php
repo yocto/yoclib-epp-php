@@ -5,8 +5,6 @@ use DOMDocument;
 use DOMElement;
 use RuntimeException;
 
-class EPPDocument extends DOMDocument{}
-
 /**
  * Class EPPConnection
  * @package YOCLIB\EPP
@@ -36,6 +34,7 @@ class EPPConnection{
     /**
      * Convert document elements
      * @param DOMDocument $doc
+     * @return DOMDocument|null
      */
     private function convertDOM($doc){
         return $this->convertElement($doc,$doc->documentElement);
@@ -43,7 +42,8 @@ class EPPConnection{
 
     /**
      * @param DOMDocument $doc
-     * @param DOMNode $node
+     * @param $element
+     * @return DOMDocument|null
      */
     private function convertElement($doc,$element){
         foreach($element->childNodes AS $childNode){

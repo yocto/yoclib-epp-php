@@ -40,6 +40,7 @@ class EPPSchemaHelper{
      * Convert Element to custom class
      * @param DOMDocument $doc
      * @param DOMElement $element
+     * @return DOMDocument|null
      */
     public static function convertElement($doc,$element){
         foreach(self::ELEMENTS AS $elem){
@@ -54,6 +55,7 @@ class EPPSchemaHelper{
                 }
             }
         }
+        return null;
     }
 
     /**
