@@ -3,17 +3,43 @@ namespace YOCLIB\EPP;
 
 use DOMDocument;
 use DOMElement;
+use DOMNamedNodeMap;
+use DOMNodeList;
+
+use YOCLIB\EPP\Schemas\EPP\EPPEppElement;
+use YOCLIB\EPP\Schemas\EPP\EPPGreetingElement;
 
 class EPPSchemaHelper{
+
+    private const ELEMENTS = [
+        ['urn:ietf:params:xml:ns:epp-1.0','epp',EPPEppElement::class],
+        ['urn:ietf:params:xml:ns:epp-1.0','greeting',EPPGreetingElement::class],
+    ];
+
+    private static $collector = [];
+
+    public static function clearCollector(){
+        self::$collector = [];
+    }
 
     /**
      * Convert Element to custom class
      * @param DOMDocument $doc
-     * @param DOMElement $node
-     * @return DOMDocument
+     * @param DOMElement $element
      */
-    public static function convertElement($doc,$node){
-        return null;
+    public static function convertElement($doc,$element){
+        foreach(self::ELEMENTS AS $elem){
+            if($element->namespaceURI==$elem[0] && $element->tagName==$elem[1]){
+                self::$collector[] = $newElement = self::createElementNS($doc,$elem[2],$elem[0],$elem[1]);
+                $element->parentNode->replaceChild($newElement,$element);
+                foreach(self::nodeListToArray($element->childNodes) AS $childNode){
+                    $newElement->appendChild($childNode);
+                }
+                foreach(self::nodeListToArray($element->attributes) AS $attribute){
+                    $newElement->setAttributeNode($attribute);
+                }
+            }
+        }
     }
 
     /**
@@ -43,6 +69,18 @@ class EPPSchemaHelper{
         $elem = $doc->createElementNS($namespaceURI,$qualifiedName);
         $doc->registerNodeClass('DOMElement',null);
         return $elem;
+    }
+
+    /**
+     * @param DOMNamedNodeMap|DOMNodeList $nodeList
+     * @return array
+     */
+    private static function nodeListToArray($nodeList){
+        $array = [];
+        foreach($nodeList AS $childNode){
+            $array[] = $childNode;
+        }
+        return $array;
     }
 
 }
