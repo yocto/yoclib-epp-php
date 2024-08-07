@@ -5,12 +5,14 @@ use PHPUnit\Framework\TestCase;
 
 use YOCLIB\EPP\Elements\EPPAbsoluteElement;
 use YOCLIB\EPP\Elements\EPPAccessElement;
+use YOCLIB\EPP\Elements\EPPAdministratorElement;
 use YOCLIB\EPP\Elements\EPPAllElement;
 use YOCLIB\EPP\Elements\EPPBusinessElement;
 use YOCLIB\EPP\Elements\EPPCheckElement;
 use YOCLIB\EPP\Elements\EPPClientIdElement;
 use YOCLIB\EPP\Elements\EPPClientTransactionIdElement;
 use YOCLIB\EPP\Elements\EPPCommandElement;
+use YOCLIB\EPP\Elements\EPPContactElement;
 use YOCLIB\EPP\Elements\EPPCreateElement;
 use YOCLIB\EPP\Elements\EPPDataCollectionPolicyElement;
 use YOCLIB\EPP\Elements\EPPDeleteElement;
@@ -39,7 +41,9 @@ use YOCLIB\EPP\Elements\EPPPasswordElement;
 use YOCLIB\EPP\Elements\EPPPersonalAndOtherElement;
 use YOCLIB\EPP\Elements\EPPPersonalElement;
 use YOCLIB\EPP\Elements\EPPPollElement;
+use YOCLIB\EPP\Elements\EPPProvisioningElement;
 use YOCLIB\EPP\Elements\EPPPublicElement;
+use YOCLIB\EPP\Elements\EPPPurposeElement;
 use YOCLIB\EPP\Elements\EPPReasonElement;
 use YOCLIB\EPP\Elements\EPPRecipientElement;
 use YOCLIB\EPP\Elements\EPPRelativeElement;
@@ -54,6 +58,7 @@ use YOCLIB\EPP\Elements\EPPServerIdElement;
 use YOCLIB\EPP\Elements\EPPServiceExtensionElement;
 use YOCLIB\EPP\Elements\EPPServiceMenuElement;
 use YOCLIB\EPP\Elements\EPPServicesElement;
+use YOCLIB\EPP\Elements\EPPStatedElement;
 use YOCLIB\EPP\Elements\EPPStatementElement;
 use YOCLIB\EPP\Elements\EPPTransactionIdElement;
 use YOCLIB\EPP\Elements\EPPTransferElement;
@@ -373,6 +378,12 @@ class EPPElementTest extends TestCase{
         $login = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','login');
         $this->assertInstanceOf(EPPLoginElement::class,$login);
 
+        $this->assertNull($login->getClientID());
+        $this->assertNull($login->getPassword());
+        $this->assertNull($login->getNewPassword());
+        $this->assertNull($login->getOptions());
+        $this->assertNull($login->getServices());
+
         $clID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','clID');
         $login->appendChild($clID);
 
@@ -404,12 +415,55 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPServicesElement::class,$svcs);
     }
 
+    public function testEPPPurposeElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPPurposeElement $purpose*/
+        $purpose = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','purpose');
+        $this->assertInstanceOf(EPPPurposeElement::class,$purpose);
+
+        $this->assertNull($purpose->getAdministrator());
+        $this->assertNull($purpose->getContact());
+        $this->assertNull($purpose->getOther());
+        $this->assertNull($purpose->getProvisioning());
+
+        $admin = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','admin');
+        $purpose->appendChild($admin);
+
+        $this->assertEquals($admin,$purpose->getAdministrator());
+        $this->assertInstanceOf(EPPAdministratorElement::class,$admin);
+
+        $contact = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','contact');
+        $purpose->appendChild($contact);
+
+        $this->assertEquals($contact,$purpose->getContact());
+        $this->assertInstanceOf(EPPContactElement::class,$contact);
+
+        $other = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','other');
+        $purpose->appendChild($other);
+
+        $this->assertEquals($other,$purpose->getOther());
+        $this->assertInstanceOf(EPPOtherElement::class,$other);
+
+        $prov = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','prov');
+        $purpose->appendChild($prov);
+
+        $this->assertEquals($prov,$purpose->getProvisioning());
+        $this->assertInstanceOf(EPPProvisioningElement::class,$prov);
+    }
+
     public function testEPPRecipientElement(){
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPRecipientElement $recipient*/
         $recipient = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','recipient');
         $this->assertInstanceOf(EPPRecipientElement::class,$recipient);
+
+        $this->assertNull($recipient->getOther());
+        $this->assertEmpty($recipient->getOurs());
+        $this->assertNull($recipient->getPublic());
+        $this->assertNull($recipient->getSame());
+        $this->assertNull($recipient->getUnrelated());
 
         $other = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','other');
         $recipient->appendChild($other);
@@ -449,6 +503,12 @@ class EPPElementTest extends TestCase{
         $response = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','response');
         $this->assertInstanceOf(EPPResponseElement::class,$response);
 
+        $this->assertEmpty($response->getResult());
+        $this->assertNull($response->getMessageQueue());
+        $this->assertNull($response->getResponseData());
+        $this->assertNull($response->getExtension());
+        $this->assertNull($response->getTransactionID());
+
         $result = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','result');
         $response->appendChild($result);
 
@@ -487,6 +547,10 @@ class EPPElementTest extends TestCase{
         $result = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','result');
         $this->assertInstanceOf(EPPResultElement::class,$result);
 
+        $this->assertNull($result->getMessage());
+        $this->assertEmpty($result->getValue());
+        $this->assertEmpty($result->getExtensionValue());
+
         $msg = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msg');
         $result->appendChild($msg);
 
@@ -513,6 +577,12 @@ class EPPElementTest extends TestCase{
         $retention = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','retention');
         $this->assertInstanceOf(EPPRetentionElement::class,$retention);
 
+        $this->assertNull($retention->getBusiness());
+        $this->assertNull($retention->getIndefinite());
+        $this->assertNull($retention->getLegal());
+        $this->assertNull($retention->getNone());
+        $this->assertNull($retention->getStated());
+
         $business = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','business');
         $retention->appendChild($business);
 
@@ -536,6 +606,12 @@ class EPPElementTest extends TestCase{
 
         $this->assertEquals($none,$retention->getNone());
         $this->assertInstanceOf(EPPNoneElement::class,$none);
+
+        $stated = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','stated');
+        $retention->appendChild($stated);
+
+        $this->assertEquals($stated,$retention->getStated());
+        $this->assertInstanceOf(EPPStatedElement::class,$stated);
     }
 
     public function testEPPServiceMenuElement(){
@@ -572,6 +648,29 @@ class EPPElementTest extends TestCase{
         $svcMenu->appendChild($svcExtension);
 
         $this->assertEquals($svcExtension,$svcMenu->getServiceExtension());
+        $this->assertInstanceOf(EPPServiceExtensionElement::class,$svcExtension);
+    }
+
+    public function testEPPServicesElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPServicesElement $svcs*/
+        $svcs = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcs');
+        $this->assertInstanceOf(EPPServicesElement::class,$svcs);
+
+        $this->assertEmpty($svcs->getObjectURI());
+        $this->assertNull($svcs->getServiceExtension());
+
+        $objURI = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','objURI');
+        $svcs->appendChild($objURI);
+
+        $this->assertEquals($objURI,$svcs->getObjectURI()[0]);
+        $this->assertInstanceOf(EPPObjectUriElement::class,$objURI);
+
+        $svcExtension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcExtension');
+        $svcs->appendChild($svcExtension);
+
+        $this->assertEquals($svcExtension,$svcs->getServiceExtension());
         $this->assertInstanceOf(EPPServiceExtensionElement::class,$svcExtension);
     }
 
