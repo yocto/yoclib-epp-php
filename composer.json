@@ -13,8 +13,8 @@
   "license": "GPL-3.0-or-later",
   "require": {
 	"php": "^7.1||^8",
-    "wikimedia/idle-dom": "^0.10.0",
-    "wikimedia/dodo": "^0.4.0"
+	"wikimedia/idle-dom": "^0.10.0",
+	"wikimedia/dodo": "^0.4.0"
   },
   "require-dev": {
 	"phpunit/phpunit": "^9"
@@ -28,5 +28,8 @@
 	"psr-4": {
 	  "YOCLIB\\EPP\\Tests\\": "tests/"
 	}
+  },
+  "scripts": {
+	"test": "phpunit --coverage-clover coverage.xml ."
   }
 }
