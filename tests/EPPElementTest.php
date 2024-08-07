@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 use YOCLIB\EPP\Elements\EPPAbsoluteElement;
 use YOCLIB\EPP\Elements\EPPAccessElement;
 use YOCLIB\EPP\Elements\EPPAllElement;
+use YOCLIB\EPP\Elements\EPPBusinessElement;
 use YOCLIB\EPP\Elements\EPPCheckElement;
+use YOCLIB\EPP\Elements\EPPClientIdElement;
 use YOCLIB\EPP\Elements\EPPClientTransactionIdElement;
 use YOCLIB\EPP\Elements\EPPCommandElement;
 use YOCLIB\EPP\Elements\EPPCreateElement;
@@ -18,31 +20,44 @@ use YOCLIB\EPP\Elements\EPPExtensionElement;
 use YOCLIB\EPP\Elements\EPPExtensionValueElement;
 use YOCLIB\EPP\Elements\EPPGreetingElement;
 use YOCLIB\EPP\Elements\EPPHelloElement;
+use YOCLIB\EPP\Elements\EPPIndefiniteElement;
 use YOCLIB\EPP\Elements\EPPInformationElement;
 use YOCLIB\EPP\Elements\EPPLanguageElement;
+use YOCLIB\EPP\Elements\EPPLegalElement;
 use YOCLIB\EPP\Elements\EPPLoginElement;
 use YOCLIB\EPP\Elements\EPPLogoutElement;
+use YOCLIB\EPP\Elements\EPPMessageElement;
 use YOCLIB\EPP\Elements\EPPMessageQueueElement;
+use YOCLIB\EPP\Elements\EPPNewPasswordElement;
 use YOCLIB\EPP\Elements\EPPNoneElement;
 use YOCLIB\EPP\Elements\EPPNullElement;
 use YOCLIB\EPP\Elements\EPPObjectUriElement;
+use YOCLIB\EPP\Elements\EPPOptionsElement;
 use YOCLIB\EPP\Elements\EPPOtherElement;
+use YOCLIB\EPP\Elements\EPPOursElement;
+use YOCLIB\EPP\Elements\EPPPasswordElement;
 use YOCLIB\EPP\Elements\EPPPersonalAndOtherElement;
 use YOCLIB\EPP\Elements\EPPPersonalElement;
 use YOCLIB\EPP\Elements\EPPPollElement;
+use YOCLIB\EPP\Elements\EPPPublicElement;
 use YOCLIB\EPP\Elements\EPPReasonElement;
+use YOCLIB\EPP\Elements\EPPRecipientElement;
 use YOCLIB\EPP\Elements\EPPRelativeElement;
 use YOCLIB\EPP\Elements\EPPRenewElement;
 use YOCLIB\EPP\Elements\EPPResponseDataElement;
 use YOCLIB\EPP\Elements\EPPResponseElement;
 use YOCLIB\EPP\Elements\EPPResultElement;
+use YOCLIB\EPP\Elements\EPPRetentionElement;
+use YOCLIB\EPP\Elements\EPPSameElement;
 use YOCLIB\EPP\Elements\EPPServerDateElement;
 use YOCLIB\EPP\Elements\EPPServerIdElement;
 use YOCLIB\EPP\Elements\EPPServiceExtensionElement;
 use YOCLIB\EPP\Elements\EPPServiceMenuElement;
+use YOCLIB\EPP\Elements\EPPServicesElement;
 use YOCLIB\EPP\Elements\EPPStatementElement;
 use YOCLIB\EPP\Elements\EPPTransactionIdElement;
 use YOCLIB\EPP\Elements\EPPTransferElement;
+use YOCLIB\EPP\Elements\EPPUnrelatedElement;
 use YOCLIB\EPP\Elements\EPPUpdateElement;
 use YOCLIB\EPP\Elements\EPPValueElement;
 use YOCLIB\EPP\Elements\EPPVersionElement;
@@ -351,6 +366,82 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPDataCollectionPolicyElement::class,$dcp);
     }
 
+    public function testEPPLoginElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPLoginElement $login*/
+        $login = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','login');
+        $this->assertInstanceOf(EPPLoginElement::class,$login);
+
+        $clID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','clID');
+        $login->appendChild($clID);
+
+        $this->assertEquals($clID,$login->getClientID());
+        $this->assertInstanceOf(EPPClientIdElement::class,$clID);
+
+        $pw = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','pw');
+        $login->appendChild($pw);
+
+        $this->assertEquals($pw,$login->getPassword());
+        $this->assertInstanceOf(EPPPasswordElement::class,$pw);
+
+        $newPW = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','newPW');
+        $login->appendChild($newPW);
+
+        $this->assertEquals($newPW,$login->getNewPassword());
+        $this->assertInstanceOf(EPPNewPasswordElement::class,$newPW);
+
+        $options = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','options');
+        $login->appendChild($options);
+
+        $this->assertEquals($options,$login->getOptions());
+        $this->assertInstanceOf(EPPOptionsElement::class,$options);
+
+        $svcs = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcs');
+        $login->appendChild($svcs);
+
+        $this->assertEquals($svcs,$login->getServices());
+        $this->assertInstanceOf(EPPServicesElement::class,$svcs);
+    }
+
+    public function testEPPRecipientElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPRecipientElement $recipient*/
+        $recipient = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','recipient');
+        $this->assertInstanceOf(EPPRecipientElement::class,$recipient);
+
+        $other = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','other');
+        $recipient->appendChild($other);
+
+        $this->assertEquals($other,$recipient->getOther());
+        $this->assertInstanceOf(EPPOtherElement::class,$other);
+
+        $ours = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','ours');
+        $recipient->appendChild($ours);
+
+        $this->assertEquals($ours,$recipient->getOurs()[0]);
+        $this->assertInstanceOf(EPPOursElement::class,$ours);
+
+        $public = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','public');
+        $recipient->appendChild($public);
+
+        $this->assertEquals($public,$recipient->getPublic());
+        $this->assertInstanceOf(EPPPublicElement::class,$public);
+
+        $same = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','same');
+        $recipient->appendChild($same);
+
+        $this->assertEquals($same,$recipient->getSame());
+        $this->assertInstanceOf(EPPSameElement::class,$same);
+
+        $unrelated = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','unrelated');
+        $recipient->appendChild($unrelated);
+
+        $this->assertEquals($unrelated,$recipient->getUnrelated());
+        $this->assertInstanceOf(EPPUnrelatedElement::class,$unrelated);
+    }
+
     public function testEPPResponseElement(){
         $document = EPPDocumentHelper::createEPPDocument();
 
@@ -387,6 +478,64 @@ class EPPElementTest extends TestCase{
 
         $this->assertEquals($trID,$response->getTransactionID());
         $this->assertInstanceOf(EPPTransactionIdElement::class,$trID);
+    }
+
+    public function testEPPResultElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPResultElement $result*/
+        $result = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','result');
+        $this->assertInstanceOf(EPPResultElement::class,$result);
+
+        $msg = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msg');
+        $result->appendChild($msg);
+
+        $this->assertEquals($msg,$result->getMessage());
+        $this->assertInstanceOf(EPPMessageElement::class,$msg);
+
+        $value = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','value');
+        $result->appendChild($value);
+
+        $this->assertEquals($value,$result->getValue()[0]);
+        $this->assertInstanceOf(EPPValueElement::class,$value);
+
+        $extValue = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extValue');
+        $result->appendChild($extValue);
+
+        $this->assertEquals($extValue,$result->getExtensionValue()[0]);
+        $this->assertInstanceOf(EPPExtensionValueElement::class,$extValue);
+    }
+
+    public function testEPPRetentionElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPRetentionElement $retention*/
+        $retention = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','retention');
+        $this->assertInstanceOf(EPPRetentionElement::class,$retention);
+
+        $business = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','business');
+        $retention->appendChild($business);
+
+        $this->assertEquals($business,$retention->getBusiness());
+        $this->assertInstanceOf(EPPBusinessElement::class,$business);
+
+        $indefinite = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','indefinite');
+        $retention->appendChild($indefinite);
+
+        $this->assertEquals($indefinite,$retention->getIndefinite());
+        $this->assertInstanceOf(EPPIndefiniteElement::class,$indefinite);
+
+        $legal = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','legal');
+        $retention->appendChild($legal);
+
+        $this->assertEquals($legal,$retention->getLegal());
+        $this->assertInstanceOf(EPPLegalElement::class,$legal);
+
+        $none = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','none');
+        $retention->appendChild($none);
+
+        $this->assertEquals($none,$retention->getNone());
+        $this->assertInstanceOf(EPPNoneElement::class,$none);
     }
 
     public function testEPPServiceMenuElement(){
