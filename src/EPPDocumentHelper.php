@@ -6,8 +6,11 @@ use Wikimedia\Dodo\XMLDocument;
 
 class EPPDocumentHelper{
 
-    public static function createEPPDocument(): XMLDocument{
-        return new class(null,'application/epp+xml') extends XMLDocument{
+    /**
+     * @return EPPDocument
+     */
+    public static function createEPPDocument(): EPPDocument{
+        return new class(null,'application/epp+xml') extends XMLDocument implements EPPDocument{
 
             public function createElementNS(?string $ns, string $qname, $options = null){
                 $element = parent::createElementNS($ns, $qname, $options);
@@ -16,6 +19,10 @@ class EPPDocumentHelper{
                     return EPPElementImpl::__createElementNS($this, $ns, $lname, $prefix) ?? $element;
                 }
                 return $element;
+            }
+
+            public function setContentType($contentType): void{
+                $this->_contentType = $contentType;
             }
 
         };
