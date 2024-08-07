@@ -7,6 +7,6 @@ interface EPPOptionsElement extends EPPElement {
 
     public function getVersion(): ?EPPVersionElement;
 
-    public function getLanguage(): ?EPPVersionElement;
+    public function getLanguage(): ?EPPLanguageElement;
 
 }

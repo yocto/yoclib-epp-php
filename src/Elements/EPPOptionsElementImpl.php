@@ -9,7 +9,7 @@ class EPPOptionsElementImpl extends EPPElementImpl implements EPPOptionsElement 
         return $this->getElementsByTagNameNS($this->namespaceURI,'version')[0] ?? null;
     }
 
-    public function getLanguage(): ?EPPVersionElement{
+    public function getLanguage(): ?EPPLanguageElement{
         return $this->getElementsByTagNameNS($this->namespaceURI,'lang')[0] ?? null;
     }
 
