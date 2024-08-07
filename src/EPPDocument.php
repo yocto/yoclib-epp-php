@@ -5,7 +5,7 @@ use Wikimedia\IDLeDOM\XMLDocument;
 
 interface EPPDocument extends XMLDocument {
 
-    public function createElementNS(?string $ns, string $qname, $options = null);
+    public function createElementNS(?string $namespace, string $qualifiedName, $options = null);
 
     public function setContentType($contentType): void;
 
