@@ -15,26 +15,37 @@ use YOCLIB\EPP\Elements\EPPDeleteElement;
 use YOCLIB\EPP\Elements\EPPEppElement;
 use YOCLIB\EPP\Elements\EPPExpiryElement;
 use YOCLIB\EPP\Elements\EPPExtensionElement;
+use YOCLIB\EPP\Elements\EPPExtensionValueElement;
 use YOCLIB\EPP\Elements\EPPGreetingElement;
 use YOCLIB\EPP\Elements\EPPHelloElement;
 use YOCLIB\EPP\Elements\EPPInformationElement;
+use YOCLIB\EPP\Elements\EPPLanguageElement;
 use YOCLIB\EPP\Elements\EPPLoginElement;
 use YOCLIB\EPP\Elements\EPPLogoutElement;
+use YOCLIB\EPP\Elements\EPPMessageQueueElement;
 use YOCLIB\EPP\Elements\EPPNoneElement;
 use YOCLIB\EPP\Elements\EPPNullElement;
+use YOCLIB\EPP\Elements\EPPObjectUriElement;
 use YOCLIB\EPP\Elements\EPPOtherElement;
 use YOCLIB\EPP\Elements\EPPPersonalAndOtherElement;
 use YOCLIB\EPP\Elements\EPPPersonalElement;
 use YOCLIB\EPP\Elements\EPPPollElement;
+use YOCLIB\EPP\Elements\EPPReasonElement;
 use YOCLIB\EPP\Elements\EPPRelativeElement;
 use YOCLIB\EPP\Elements\EPPRenewElement;
+use YOCLIB\EPP\Elements\EPPResponseDataElement;
 use YOCLIB\EPP\Elements\EPPResponseElement;
+use YOCLIB\EPP\Elements\EPPResultElement;
 use YOCLIB\EPP\Elements\EPPServerDateElement;
 use YOCLIB\EPP\Elements\EPPServerIdElement;
+use YOCLIB\EPP\Elements\EPPServiceExtensionElement;
 use YOCLIB\EPP\Elements\EPPServiceMenuElement;
 use YOCLIB\EPP\Elements\EPPStatementElement;
+use YOCLIB\EPP\Elements\EPPTransactionIdElement;
 use YOCLIB\EPP\Elements\EPPTransferElement;
 use YOCLIB\EPP\Elements\EPPUpdateElement;
+use YOCLIB\EPP\Elements\EPPValueElement;
+use YOCLIB\EPP\Elements\EPPVersionElement;
 use YOCLIB\EPP\EPPDocumentHelper;
 
 class EPPElementTest extends TestCase{
@@ -280,6 +291,29 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPRelativeElement::class,$relative);
     }
 
+    public function testEPPExtensionValueElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPExtensionValueElement $extValue*/
+        $extValue = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extValue');
+        $this->assertInstanceOf(EPPExtensionValueElement::class,$extValue);
+
+        $this->assertNull($extValue->getValue());
+        $this->assertNull($extValue->getReason());
+
+        $value = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','value');
+        $extValue->appendChild($value);
+
+        $this->assertEquals($value,$extValue->getValue());
+        $this->assertInstanceOf(EPPValueElement::class,$value);
+
+        $reason = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','reason');
+        $extValue->appendChild($reason);
+
+        $this->assertEquals($reason,$extValue->getReason());
+        $this->assertInstanceOf(EPPReasonElement::class,$reason);
+    }
+
     public function testEPPGreetingElement(){
         $document = EPPDocumentHelper::createEPPDocument();
 
@@ -315,6 +349,81 @@ class EPPElementTest extends TestCase{
 
         $this->assertEquals($dcp,$greeting->getDataCollectionPolicy());
         $this->assertInstanceOf(EPPDataCollectionPolicyElement::class,$dcp);
+    }
+
+    public function testEPPResponseElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPResponseElement $response*/
+        $response = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','response');
+        $this->assertInstanceOf(EPPResponseElement::class,$response);
+
+        $result = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','result');
+        $response->appendChild($result);
+
+        $this->assertEquals($result,$response->getResult()[0]);
+        $this->assertInstanceOf(EPPResultElement::class,$result);
+
+        $msgQ = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msgQ');
+        $response->appendChild($msgQ);
+
+        $this->assertEquals($msgQ,$response->getMessageQueue());
+        $this->assertInstanceOf(EPPMessageQueueElement::class,$msgQ);
+
+        $resData = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','resData');
+        $response->appendChild($resData);
+
+        $this->assertEquals($resData,$response->getResponseData());
+        $this->assertInstanceOf(EPPResponseDataElement::class,$resData);
+
+        $extension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extension');
+        $response->appendChild($extension);
+
+        $this->assertEquals($extension,$response->getExtension());
+        $this->assertInstanceOf(EPPExtensionElement::class,$extension);
+
+        $trID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','trID');
+        $response->appendChild($trID);
+
+        $this->assertEquals($trID,$response->getTransactionID());
+        $this->assertInstanceOf(EPPTransactionIdElement::class,$trID);
+    }
+
+    public function testEPPServiceMenuElement(){
+        $document = EPPDocumentHelper::createEPPDocument();
+
+        /**@var EPPServiceMenuElement $svcMenu*/
+        $svcMenu = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcMenu');
+        $this->assertInstanceOf(EPPServiceMenuElement::class,$svcMenu);
+
+        $this->assertEmpty($svcMenu->getVersion());
+        $this->assertEmpty($svcMenu->getLanguage());
+        $this->assertEmpty($svcMenu->getObjectURI());
+        $this->assertNull($svcMenu->getServiceExtension());
+
+        $version = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','version');
+        $svcMenu->appendChild($version);
+
+        $this->assertEquals($version,$svcMenu->getVersion()[0]);
+        $this->assertInstanceOf(EPPVersionElement::class,$version);
+
+        $lang = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','lang');
+        $svcMenu->appendChild($lang);
+
+        $this->assertEquals($lang,$svcMenu->getLanguage()[0]);
+        $this->assertInstanceOf(EPPLanguageElement::class,$lang);
+
+        $objURI = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','objURI');
+        $svcMenu->appendChild($objURI);
+
+        $this->assertEquals($objURI,$svcMenu->getObjectURI()[0]);
+        $this->assertInstanceOf(EPPObjectUriElement::class,$objURI);
+
+        $svcExtension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcExtension');
+        $svcMenu->appendChild($svcExtension);
+
+        $this->assertEquals($svcExtension,$svcMenu->getServiceExtension());
+        $this->assertInstanceOf(EPPServiceExtensionElement::class,$svcExtension);
     }
 
 }
