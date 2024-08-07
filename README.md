@@ -4,7 +4,8 @@ This yocLibrary enables your project to send and receive with EPP (Extensible Pr
 
 ## Status
 
-[![Build Status](https://travis-ci.com/yocto/yoclib-epp-php.svg?branch=master)](https://travis-ci.com/yocto/yoclib-epp-php)
+[![PHP Composer](https://github.com/yocto/yoclib-epp-php/actions/workflows/php.yml/badge.svg)](https://github.com/yocto/yoclib-epp-php/actions/workflows/php.yml)
+[![codecov](https://codecov.io/gh/yocto/yoclib-epp-php/graph/badge.svg)](https://codecov.io/gh/yocto/yoclib-epp-php)
 
 ## Installation
 
