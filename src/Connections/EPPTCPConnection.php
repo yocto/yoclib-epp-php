@@ -20,7 +20,7 @@ class EPPTCPConnection extends EPPBaseConnection implements EPPConnection {
      * @param string $data
      * @return int
      */
-    private function decodeInteger(string $data): int{
+    protected function decodeInteger(string $data): int{
         return unpack('N',substr($data,0,4))[1] ?? -1;
     }
 
@@ -29,14 +29,14 @@ class EPPTCPConnection extends EPPBaseConnection implements EPPConnection {
      * @param int $integer
      * @return string
      */
-    private function encodeInteger(int $integer): string{
+    protected function encodeInteger(int $integer): string{
         return pack('N',$integer);
     }
 
     /**
      * Ensure if connection is not closed
      */
-    private function ensureConnection(): void{
+    protected function ensureConnection(): void{
         if($this->isClosed()){
             throw new RuntimeException('Connection closed');
         }
@@ -62,19 +62,28 @@ class EPPTCPConnection extends EPPBaseConnection implements EPPConnection {
         return $this->socket!==false;
     }
 
-    public function readXML(): ?string{
+    protected function readLength(): int{
         $this->ensureConnection();
-        $length = $this->decodeInteger(fread($this->socket,4))-4;
+        return $this->decodeInteger(fread($this->socket,4))-4;
+    }
+
+    public function readXML(): ?string{
+        $length = $this->readLength();
         if($length<0){
             return null;
         }
         return fread($this->socket,$length);
     }
 
-    public function writeXML(string $xml): void{
+    protected function writeLength(int $length): void{
         $this->ensureConnection();
+        fwrite($this->socket,$this->encodeInteger($length));
+    }
+
+    public function writeXML(string $xml): void{
         $length = strlen($xml)+4;
-        fwrite($this->socket,$this->encodeInteger($length).$xml);
+        $this->writeLength($length);
+        fwrite($this->socket,$xml);
     }
 
 }

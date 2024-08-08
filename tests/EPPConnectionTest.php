@@ -2,6 +2,7 @@
 namespace YOCLIB\EPP\Tests;
 
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use YOCLIB\EPP\Connections\EPPBaseConnection;
 use YOCLIB\EPP\Connections\EPPTCPConnection;
 use YOCLIB\EPP\Elements\EPPEppElement;
@@ -19,7 +20,7 @@ class EPPConnectionTest extends TestCase {
             }
 
             public function writeXML(string $xml): void{
-                assertEquals('<writeXML/>',$xml);
+                assertEquals('<?xml version="1.0"?>'."\n".'<writeXML/>'."\n",$xml);
             }
 
             public function close(): bool{
@@ -35,8 +36,11 @@ class EPPConnectionTest extends TestCase {
             }
         };
 
-        $this->assertEquals('<readXML/>',$conn->readXML());
-        $conn->writeXML('<writeXML/>');
+        $this->assertEquals('readXML',$conn->readDocument()->documentElement->tagName);
+
+        $doc = EPPDocumentHelper::createEPPDocument();
+        $doc->loadXML('<writeXML/>');
+        $conn->writeDocument($doc);
 
         $this->assertTrue($conn->isClosed());
         $this->assertTrue($conn->open());
@@ -68,6 +72,10 @@ class EPPConnectionTest extends TestCase {
         $this->assertFalse($conn->isClosed());
         $this->assertTrue($conn->close());
         $this->assertTrue($conn->isClosed());
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Connection closed');
+        $conn->readXML();
     }
 
 }
