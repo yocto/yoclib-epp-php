@@ -56,6 +56,16 @@ class EPPConnectionTest extends TestCase {
     public function testTCPConnection(){
         $registry = new SIDNTest;
 
+        $conn = new class($registry) extends EPPTCPConnection{
+
+            protected function readLength(): int{
+                return -1;
+            }
+
+        };
+
+        $this->assertNull($conn->readXML());
+
         $conn = new EPPTCPConnection($registry);
         $this->assertNotNull($conn);
 
