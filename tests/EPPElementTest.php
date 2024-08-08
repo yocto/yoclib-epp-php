@@ -74,7 +74,7 @@ use YOCLIB\EPP\EPPDocumentHelper;
 
 class EPPElementTest extends TestCase{
 
-    public function testEPPAccessElement(){
+    public function testEPPAccessElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPAccessElement $access*/
@@ -125,7 +125,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPPersonalAndOtherElement::class,$personalAndOther);
     }
 
-    public function testEPPCommandElement(){
+    public function testEPPCommandElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPCommandElement $command*/
@@ -218,7 +218,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPClientTransactionIdElement::class,$clTRID);
     }
 
-    public function testEPPDataCollectionPolicyElement(){
+    public function testEPPDataCollectionPolicyElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPDataCollectionPolicyElement $dcp*/
@@ -248,7 +248,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPExpiryElement::class,$expiry);
     }
 
-    public function testEPPEppElement(){
+    public function testEPPEppElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPEppElement $epp*/
@@ -292,7 +292,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPExtensionElement::class,$extension);
     }
 
-    public function testEPPExpiryElement(){
+    public function testEPPExpiryElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPExpiryElement $expiry*/
@@ -315,7 +315,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPRelativeElement::class,$relative);
     }
 
-    public function testEPPExtensionValueElement(){
+    public function testEPPExtensionValueElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPExtensionValueElement $extValue*/
@@ -338,7 +338,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPReasonElement::class,$reason);
     }
 
-    public function testEPPGreetingElement(){
+    public function testEPPGreetingElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPGreetingElement $greeting*/
@@ -375,7 +375,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPDataCollectionPolicyElement::class,$dcp);
     }
 
-    public function testEPPLoginElement(){
+    public function testEPPLoginElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPLoginElement $login*/
@@ -419,7 +419,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPServicesElement::class,$svcs);
     }
 
-    public function testEPPMessageQueueElement(){
+    public function testEPPMessageQueueElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPMessageQueueElement $msgQ*/
@@ -442,7 +442,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPMessageElement::class,$msg);
     }
 
-    public function testEPPOptionsElement(){
+    public function testEPPOptionsElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPOptionsElement $options*/
@@ -465,7 +465,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPLanguageElement::class,$lang);
     }
 
-    public function testEPPOursElement(){
+    public function testEPPOursElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPOursElement $ours*/
@@ -481,7 +481,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPRecipientDescriptionElement::class,$recDesc);
     }
 
-    public function testEPPPurposeElement(){
+    public function testEPPPurposeElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPPurposeElement $purpose*/
@@ -518,7 +518,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPProvisioningElement::class,$prov);
     }
 
-    public function testEPPRecipientElement(){
+    public function testEPPRecipientElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPRecipientElement $recipient*/
@@ -562,7 +562,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPUnrelatedElement::class,$unrelated);
     }
 
-    public function testEPPResponseElement(){
+    public function testEPPResponseElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPResponseElement $response*/
@@ -606,7 +606,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPTransactionIdElement::class,$trID);
     }
 
-    public function testEPPResultElement(){
+    public function testEPPResultElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPResultElement $result*/
@@ -636,7 +636,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPExtensionValueElement::class,$extValue);
     }
 
-    public function testEPPRetentionElement(){
+    public function testEPPRetentionElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPRetentionElement $retention*/
@@ -680,7 +680,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPStatedElement::class,$stated);
     }
 
-    public function testEPPServiceExtensionElement(){
+    public function testEPPServiceExtensionElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPServiceExtensionElement $svcExtension*/
@@ -696,7 +696,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPExtensionUriElement::class,$extURI);
     }
 
-    public function testEPPServiceMenuElement(){
+    public function testEPPServiceMenuElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPServiceMenuElement $svcMenu*/
@@ -733,7 +733,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPServiceExtensionElement::class,$svcExtension);
     }
 
-    public function testEPPServicesElement(){
+    public function testEPPServicesElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPServicesElement $svcs*/
@@ -756,7 +756,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPServiceExtensionElement::class,$svcExtension);
     }
 
-    public function testEPPStatementElement(){
+    public function testEPPStatementElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPStatementElement $statement*/
@@ -786,7 +786,7 @@ class EPPElementTest extends TestCase{
         $this->assertInstanceOf(EPPRetentionElement::class,$retention);
     }
 
-    public function testEPPTransactionIdElement(){
+    public function testEPPTransactionIdElement(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPTransactionIdElement $trID*/

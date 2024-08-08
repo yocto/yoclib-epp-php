@@ -12,21 +12,21 @@ use YOCLIB\EPP\EPPDocumentHelper;
 
 class EPPDocumentHelperTest extends TestCase{
 
-    public function testCreateEPPDocument(){
+    public function testCreateEPPDocument(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         $this->assertNotNull($document);
         $this->assertEquals(EPPDocumentHelper::CONTENT_TYPE,$document->getContentType());
     }
 
-    public function testSetContentType(){
+    public function testSetContentType(): void{
         $document = EPPDocumentHelper::createEPPDocument();
         $document->setContentType('application/xml');
 
         $this->assertEquals('application/xml',$document->getContentType());
     }
 
-    public function testCreateElementNS(){
+    public function testCreateElementNS(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
         $this->assertInstanceOf(EPPEppElement::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','epp'));
