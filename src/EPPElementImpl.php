@@ -82,7 +82,7 @@ class EPPElementImpl extends Element implements EPPElement {
         if($className==null){
             return null;
         }
-        return new $className($doc,$lname,$prefix);
+        return new $className($doc,$lname,$ns,$prefix);
     }
 
     private static function __getElements(): array{
