@@ -13,10 +13,29 @@ This yocLibrary enables your project to send and receive with EPP (Extensible Pr
 
 ## Usage
 
-### Serializing
+### Reading
 
 ```php
 use YOCLIB\EPP\EPPDocumentHelper;
+use YOCLIB\EPP\Connections\EPPTCPConnection;
+use YOCLIB\EPP\Elements\EPPEppElement;
+
+$conn = new EPPTCPConnection(new SIDNTest());
+
+$doc = $conn->readDocument();
+
+/**@var EPPEppElement $epp*/
+$epp = $doc->documentElement;
+
+$hello = $epp->getHello();
+```
+
+### Writing
+
+```php
+use YOCLIB\EPP\EPPDocumentHelper;
+use YOCLIB\EPP\Connections\EPPTCPConnection;
+use YOCLIB\EPP\Registries\SIDNTest;
 
 $doc = EPPDocumentHelper::createEPPDocument();
 
@@ -28,23 +47,7 @@ $epp->appendChild($hello);
 
 $doc->appendChild($epp);
 
-$xml = $doc->saveXML();
-```
+$conn = new EPPTCPConnection(new SIDNTest());
 
-### Deserializing
-
-```php
-use YOCLIB\EPP\EPPDocumentHelper;
-use YOCLIB\EPP\Elements\EPPEppElement;
-
-$xml = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><epp xmlns="urn:ietf:params:xml:ns:epp-1.0"><hello/></epp>';
-
-$doc = EPPDocumentHelper::createEPPDocument();
-
-$doc->loadXML($xml);
-
-/**@var EPPEppElement $epp*/
-$epp = $doc->documentElement;
-
-$hello = $epp->getHello();
+$xml = $conn->writeDocument($doc);
 ```

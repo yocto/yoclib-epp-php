@@ -16,7 +16,7 @@ class EPPDocumentHelperTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         $this->assertNotNull($document);
-        $this->assertEquals('application/epp+xml',$document->getContentType());
+        $this->assertEquals(EPPDocumentHelper::CONTENT_TYPE,$document->getContentType());
     }
 
     public function testSetContentType(){
