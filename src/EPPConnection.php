@@ -9,7 +9,7 @@ interface EPPConnection{
 
     public function open(): bool;
 
-    public function readDocument(): EPPDocument;
+    public function readDocument(): ?EPPDocument;
 
     public function readXML(): ?string;
 

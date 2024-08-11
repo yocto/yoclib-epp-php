@@ -7,7 +7,7 @@ use YOCLIB\EPP\EPPDocumentHelper;
 
 abstract class EPPBaseConnection implements EPPConnection {
 
-    public function readDocument(): EPPDocument{
+    public function readDocument(): ?EPPDocument{
         $doc = EPPDocumentHelper::createEPPDocument();
         $doc->loadXML($this->readXML());
         return $doc;
