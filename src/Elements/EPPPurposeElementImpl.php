@@ -5,7 +5,7 @@ use YOCLIB\EPP\EPPElementImpl;
 
 class EPPPurposeElementImpl extends EPPElementImpl implements EPPPurposeElement {
 
-    public function getAdministrator(): ?EPPAdministratorElement{
+    public function getAdministration(): ?EPPAdministrationElement{
         return $this->getElementsByTagNameNS($this->namespaceURI,'admin')[0] ?? null;
     }
 

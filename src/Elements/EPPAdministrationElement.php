@@ -3,6 +3,6 @@ namespace YOCLIB\EPP\Elements;
 
 use YOCLIB\EPP\EPPElement;
 
-interface EPPAdministratorElement extends EPPElement{
+interface EPPAdministrationElement extends EPPElement{
 
 }

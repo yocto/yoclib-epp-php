@@ -6,7 +6,7 @@ use Wikimedia\IDLeDOM\Document;
 
 use YOCLIB\EPP\Elements\EPPAbsoluteElementImpl;
 use YOCLIB\EPP\Elements\EPPAccessElementImpl;
-use YOCLIB\EPP\Elements\EPPAdministratorElementImpl;
+use YOCLIB\EPP\Elements\EPPAdministrationElementImpl;
 use YOCLIB\EPP\Elements\EPPAllElementImpl;
 use YOCLIB\EPP\Elements\EPPBusinessElementImpl;
 use YOCLIB\EPP\Elements\EPPCheckElementImpl;
@@ -102,7 +102,7 @@ class EPPElementImpl extends Element implements EPPElement {
             'urn:ietf:params:xml:ns:epp-1.0' => [
                 'absolute' => EPPAbsoluteElementImpl::class,
                 'access' => EPPAccessElementImpl::class,
-                'admin' => EPPAdministratorElementImpl::class,
+                'admin' => EPPAdministrationElementImpl::class,
                 'all' => EPPAllElementImpl::class,
                 'business' => EPPBusinessElementImpl::class,
                 'check' => EPPCheckElementImpl::class,

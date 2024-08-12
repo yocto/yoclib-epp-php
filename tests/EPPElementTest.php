@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 use YOCLIB\EPP\Elements\EPPAbsoluteElement;
 use YOCLIB\EPP\Elements\EPPAccessElement;
-use YOCLIB\EPP\Elements\EPPAdministratorElement;
+use YOCLIB\EPP\Elements\EPPAdministrationElement;
 use YOCLIB\EPP\Elements\EPPAllElement;
 use YOCLIB\EPP\Elements\EPPBusinessElement;
 use YOCLIB\EPP\Elements\EPPCheckElement;
@@ -488,7 +488,7 @@ class EPPElementTest extends TestCase{
         $purpose = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','purpose');
         $this->assertInstanceOf(EPPPurposeElement::class,$purpose);
 
-        $this->assertNull($purpose->getAdministrator());
+        $this->assertNull($purpose->getAdministration());
         $this->assertNull($purpose->getContact());
         $this->assertNull($purpose->getOther());
         $this->assertNull($purpose->getProvisioning());
@@ -496,8 +496,8 @@ class EPPElementTest extends TestCase{
         $admin = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','admin');
         $purpose->appendChild($admin);
 
-        $this->assertEquals($admin,$purpose->getAdministrator());
-        $this->assertInstanceOf(EPPAdministratorElement::class,$admin);
+        $this->assertEquals($admin,$purpose->getAdministration());
+        $this->assertInstanceOf(EPPAdministrationElement::class,$admin);
 
         $contact = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','contact');
         $purpose->appendChild($contact);
