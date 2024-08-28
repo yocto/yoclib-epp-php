@@ -34,14 +34,15 @@ $hello = $epp->getHello();
 
 ```php
 use YOCLIB\EPP\EPPDocumentHelper;
+use YOCLIB\EPP\EPPNamespaces;
 use YOCLIB\EPP\Connections\EPPTCPConnection;
 use YOCLIB\EPP\Registries\SIDNTest;
 
 $doc = EPPDocumentHelper::createEPPDocument();
 
-$epp = $doc->createElementNS('urn:ietf:params:xml:ns:epp-1.0','epp');
+$epp = $doc->createElementNS(EPPNamespaces::EPP_1_0,'epp');
 
-$hello = $doc->createElementNS('urn:ietf:params:xml:ns:epp-1.0','hello');
+$hello = $doc->createElementNS(EPPNamespaces::EPP_1_0,'hello');
 
 $epp->appendChild($hello);
 

@@ -9,6 +9,7 @@ use YOCLIB\EPP\Elements\EPPEppElement;
 use YOCLIB\EPP\Elements\EPPHelloElement;
 use YOCLIB\EPP\Elements\EPPUnknownElement;
 use YOCLIB\EPP\EPPDocumentHelper;
+use YOCLIB\EPP\EPPNamespaces;
 
 class EPPDocumentHelperTest extends TestCase{
 
@@ -29,16 +30,16 @@ class EPPDocumentHelperTest extends TestCase{
     public function testCreateElementNS(): void{
         $document = EPPDocumentHelper::createEPPDocument();
 
-        $this->assertInstanceOf(EPPEppElement::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','epp'));
-        $this->assertInstanceOf(EPPHelloElement::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','hello'));
-        $this->assertInstanceOf(EPPUnknownElement::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','does-not-exist'));
+        $this->assertInstanceOf(EPPEppElement::class,$document->createElementNS(EPPNamespaces::EPP_1_0,'epp'));
+        $this->assertInstanceOf(EPPHelloElement::class,$document->createElementNS(EPPNamespaces::EPP_1_0,'hello'));
+        $this->assertInstanceOf(EPPUnknownElement::class,$document->createElementNS(EPPNamespaces::EPP_1_0,'does-not-exist'));
         $this->assertInstanceOf(Element::class,$document->createElementNS('does-not-exist','does-not-exist'));
 
         $document->setContentType('application/xml');
 
-        $this->assertInstanceOf(Element::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','epp'));
-        $this->assertInstanceOf(Element::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','hello'));
-        $this->assertInstanceOf(Element::class,$document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','does-not-exist'));
+        $this->assertInstanceOf(Element::class,$document->createElementNS(EPPNamespaces::EPP_1_0,'epp'));
+        $this->assertInstanceOf(Element::class,$document->createElementNS(EPPNamespaces::EPP_1_0,'hello'));
+        $this->assertInstanceOf(Element::class,$document->createElementNS(EPPNamespaces::EPP_1_0,'does-not-exist'));
         $this->assertInstanceOf(Element::class,$document->createElementNS('does-not-exist','does-not-exist'));
     }
 

@@ -71,6 +71,7 @@ use YOCLIB\EPP\Elements\EPPUpdateElement;
 use YOCLIB\EPP\Elements\EPPValueElement;
 use YOCLIB\EPP\Elements\EPPVersionElement;
 use YOCLIB\EPP\EPPDocumentHelper;
+use YOCLIB\EPP\EPPNamespaces;
 
 class EPPElementTest extends TestCase{
 
@@ -78,7 +79,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPAccessElement $access*/
-        $access = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','access');
+        $access = $document->createElementNS(EPPNamespaces::EPP_1_0,'access');
         $this->assertInstanceOf(EPPAccessElement::class,$access);
 
         $this->assertNull($access->getAll());
@@ -88,37 +89,37 @@ class EPPElementTest extends TestCase{
         $this->assertNull($access->getPersonal());
         $this->assertNull($access->getPersonalOrOther());
 
-        $all = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','all');
+        $all = $document->createElementNS(EPPNamespaces::EPP_1_0,'all');
         $access->appendChild($all);
 
         $this->assertEquals($all,$access->getAll());
         $this->assertInstanceOf(EPPAllElement::class,$all);
 
-        $none = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','none');
+        $none = $document->createElementNS(EPPNamespaces::EPP_1_0,'none');
         $access->appendChild($none);
 
         $this->assertEquals($none,$access->getNone());
         $this->assertInstanceOf(EPPNoneElement::class,$none);
 
-        $null = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','null');
+        $null = $document->createElementNS(EPPNamespaces::EPP_1_0,'null');
         $access->appendChild($null);
 
         $this->assertEquals($null,$access->getNull());
         $this->assertInstanceOf(EPPNullElement::class,$null);
 
-        $other = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','other');
+        $other = $document->createElementNS(EPPNamespaces::EPP_1_0,'other');
         $access->appendChild($other);
 
         $this->assertEquals($other,$access->getOther());
         $this->assertInstanceOf(EPPOtherElement::class,$other);
 
-        $personal = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','personal');
+        $personal = $document->createElementNS(EPPNamespaces::EPP_1_0,'personal');
         $access->appendChild($personal);
 
         $this->assertEquals($personal,$access->getPersonal());
         $this->assertInstanceOf(EPPPersonalElement::class,$personal);
 
-        $personalAndOther = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','personalAndOther');
+        $personalAndOther = $document->createElementNS(EPPNamespaces::EPP_1_0,'personalAndOther');
         $access->appendChild($personalAndOther);
 
         $this->assertEquals($personalAndOther,$access->getPersonalOrOther());
@@ -129,7 +130,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPCommandElement $command*/
-        $command = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','command');
+        $command = $document->createElementNS(EPPNamespaces::EPP_1_0,'command');
         $this->assertInstanceOf(EPPCommandElement::class,$command);
 
         $this->assertNull($command->getCheck());
@@ -145,73 +146,73 @@ class EPPElementTest extends TestCase{
         $this->assertNull($command->getExtension());
         $this->assertNull($command->getClientTransactionID());
 
-        $check = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','check');
+        $check = $document->createElementNS(EPPNamespaces::EPP_1_0,'check');
         $command->appendChild($check);
 
         $this->assertEquals($check,$command->getCheck());
         $this->assertInstanceOf(EPPCheckElement::class,$check);
 
-        $create = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','create');
+        $create = $document->createElementNS(EPPNamespaces::EPP_1_0,'create');
         $command->appendChild($create);
 
         $this->assertEquals($create,$command->getCreate());
         $this->assertInstanceOf(EPPCreateElement::class,$create);
 
-        $delete = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','delete');
+        $delete = $document->createElementNS(EPPNamespaces::EPP_1_0,'delete');
         $command->appendChild($delete);
 
         $this->assertEquals($delete,$command->getDelete());
         $this->assertInstanceOf(EPPDeleteElement::class,$delete);
 
-        $info = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','info');
+        $info = $document->createElementNS(EPPNamespaces::EPP_1_0,'info');
         $command->appendChild($info);
 
         $this->assertEquals($info,$command->getInformation());
         $this->assertInstanceOf(EPPInformationElement::class,$info);
 
-        $login = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','login');
+        $login = $document->createElementNS(EPPNamespaces::EPP_1_0,'login');
         $command->appendChild($login);
 
         $this->assertEquals($login,$command->getLogin());
         $this->assertInstanceOf(EPPLoginElement::class,$login);
 
-        $logout = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','logout');
+        $logout = $document->createElementNS(EPPNamespaces::EPP_1_0,'logout');
         $command->appendChild($logout);
 
         $this->assertEquals($logout,$command->getLogout());
         $this->assertInstanceOf(EPPLogoutElement::class,$logout);
 
-        $poll = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','poll');
+        $poll = $document->createElementNS(EPPNamespaces::EPP_1_0,'poll');
         $command->appendChild($poll);
 
         $this->assertEquals($poll,$command->getPoll());
         $this->assertInstanceOf(EPPPollElement::class,$poll);
 
-        $renew = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','renew');
+        $renew = $document->createElementNS(EPPNamespaces::EPP_1_0,'renew');
         $command->appendChild($renew);
 
         $this->assertEquals($renew,$command->getRenew());
         $this->assertInstanceOf(EPPRenewElement::class,$renew);
 
-        $transfer = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','transfer');
+        $transfer = $document->createElementNS(EPPNamespaces::EPP_1_0,'transfer');
         $command->appendChild($transfer);
 
         $this->assertEquals($transfer,$command->getTransfer());
         $this->assertInstanceOf(EPPTransferElement::class,$transfer);
 
-        $update = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','update');
+        $update = $document->createElementNS(EPPNamespaces::EPP_1_0,'update');
         $command->appendChild($update);
 
         $this->assertEquals($update,$command->getUpdate());
         $this->assertInstanceOf(EPPUpdateElement::class,$update);
 
-        $extension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extension');
+        $extension = $document->createElementNS(EPPNamespaces::EPP_1_0,'extension');
         $command->appendChild($extension);
 
         $this->assertEquals($extension,$command->getExtension());
         $this->assertInstanceOf(EPPExtensionElement::class,$extension);
 
-        $clTRID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','clTRID');
+        $clTRID = $document->createElementNS(EPPNamespaces::EPP_1_0,'clTRID');
         $command->appendChild($clTRID);
 
         $this->assertEquals($clTRID,$command->getClientTransactionID());
@@ -222,26 +223,26 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPDataCollectionPolicyElement $dcp*/
-        $dcp = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','dcp');
+        $dcp = $document->createElementNS(EPPNamespaces::EPP_1_0,'dcp');
         $this->assertInstanceOf(EPPDataCollectionPolicyElement::class,$dcp);
 
         $this->assertNull($dcp->getAccess());
         $this->assertEmpty($dcp->getStatement());
         $this->assertNull($dcp->getExpiry());
 
-        $access = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','access');
+        $access = $document->createElementNS(EPPNamespaces::EPP_1_0,'access');
         $dcp->appendChild($access);
 
         $this->assertEquals($access,$dcp->getAccess());
         $this->assertInstanceOf(EPPAccessElement::class,$access);
 
-        $statement = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','statement');
+        $statement = $document->createElementNS(EPPNamespaces::EPP_1_0,'statement');
         $dcp->appendChild($statement);
 
         $this->assertEquals($statement,$dcp->getStatement()[0]);
         $this->assertInstanceOf(EPPStatementElement::class,$statement);
 
-        $expiry = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','expiry');
+        $expiry = $document->createElementNS(EPPNamespaces::EPP_1_0,'expiry');
         $dcp->appendChild($expiry);
 
         $this->assertEquals($expiry,$dcp->getExpiry());
@@ -252,7 +253,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPEppElement $epp*/
-        $epp = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','epp');
+        $epp = $document->createElementNS(EPPNamespaces::EPP_1_0,'epp');
         $this->assertInstanceOf(EPPEppElement::class,$epp);
 
         $this->assertNull($epp->getGreeting());
@@ -261,31 +262,31 @@ class EPPElementTest extends TestCase{
         $this->assertNull($epp->getResponse());
         $this->assertNull($epp->getExtension());
 
-        $greeting = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','greeting');
+        $greeting = $document->createElementNS(EPPNamespaces::EPP_1_0,'greeting');
         $epp->appendChild($greeting);
 
         $this->assertEquals($greeting,$epp->getGreeting());
         $this->assertInstanceOf(EPPGreetingElement::class,$greeting);
 
-        $hello = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','hello');
+        $hello = $document->createElementNS(EPPNamespaces::EPP_1_0,'hello');
         $epp->appendChild($hello);
 
         $this->assertEquals($hello,$epp->getHello());
         $this->assertInstanceOf(EPPHelloElement::class,$hello);
 
-        $command = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','command');
+        $command = $document->createElementNS(EPPNamespaces::EPP_1_0,'command');
         $epp->appendChild($command);
 
         $this->assertEquals($command,$epp->getCommand());
         $this->assertInstanceOf(EPPCommandElement::class,$command);
 
-        $response = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','response');
+        $response = $document->createElementNS(EPPNamespaces::EPP_1_0,'response');
         $epp->appendChild($response);
 
         $this->assertEquals($response,$epp->getResponse());
         $this->assertInstanceOf(EPPResponseElement::class,$response);
 
-        $extension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extension');
+        $extension = $document->createElementNS(EPPNamespaces::EPP_1_0,'extension');
         $epp->appendChild($extension);
 
         $this->assertEquals($extension,$epp->getExtension());
@@ -296,19 +297,19 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPExpiryElement $expiry*/
-        $expiry = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','expiry');
+        $expiry = $document->createElementNS(EPPNamespaces::EPP_1_0,'expiry');
         $this->assertInstanceOf(EPPExpiryElement::class,$expiry);
 
         $this->assertNull($expiry->getAbsolute());
         $this->assertNull($expiry->getRelative());
 
-        $absolute = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','absolute');
+        $absolute = $document->createElementNS(EPPNamespaces::EPP_1_0,'absolute');
         $expiry->appendChild($absolute);
 
         $this->assertEquals($absolute,$expiry->getAbsolute());
         $this->assertInstanceOf(EPPAbsoluteElement::class,$absolute);
 
-        $relative = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','relative');
+        $relative = $document->createElementNS(EPPNamespaces::EPP_1_0,'relative');
         $expiry->appendChild($relative);
 
         $this->assertEquals($relative,$expiry->getRelative());
@@ -319,19 +320,19 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPExtensionValueElement $extValue*/
-        $extValue = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extValue');
+        $extValue = $document->createElementNS(EPPNamespaces::EPP_1_0,'extValue');
         $this->assertInstanceOf(EPPExtensionValueElement::class,$extValue);
 
         $this->assertNull($extValue->getValue());
         $this->assertNull($extValue->getReason());
 
-        $value = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','value');
+        $value = $document->createElementNS(EPPNamespaces::EPP_1_0,'value');
         $extValue->appendChild($value);
 
         $this->assertEquals($value,$extValue->getValue());
         $this->assertInstanceOf(EPPValueElement::class,$value);
 
-        $reason = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','reason');
+        $reason = $document->createElementNS(EPPNamespaces::EPP_1_0,'reason');
         $extValue->appendChild($reason);
 
         $this->assertEquals($reason,$extValue->getReason());
@@ -342,7 +343,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPGreetingElement $greeting*/
-        $greeting = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','greeting');
+        $greeting = $document->createElementNS(EPPNamespaces::EPP_1_0,'greeting');
         $this->assertInstanceOf(EPPGreetingElement::class,$greeting);
 
         $this->assertNull($greeting->getServerID());
@@ -350,25 +351,25 @@ class EPPElementTest extends TestCase{
         $this->assertNull($greeting->getServiceMenu());
         $this->assertNull($greeting->getDataCollectionPolicy());
 
-        $svID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svID');
+        $svID = $document->createElementNS(EPPNamespaces::EPP_1_0,'svID');
         $greeting->appendChild($svID);
 
         $this->assertEquals($svID,$greeting->getServerID());
         $this->assertInstanceOf(EPPServerIdElement::class,$svID);
 
-        $svDate = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svDate');
+        $svDate = $document->createElementNS(EPPNamespaces::EPP_1_0,'svDate');
         $greeting->appendChild($svDate);
 
         $this->assertEquals($svDate,$greeting->getServerDate());
         $this->assertInstanceOf(EPPServerDateElement::class,$svDate);
 
-        $svcMenu = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcMenu');
+        $svcMenu = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcMenu');
         $greeting->appendChild($svcMenu);
 
         $this->assertEquals($svcMenu,$greeting->getServiceMenu());
         $this->assertInstanceOf(EPPServiceMenuElement::class,$svcMenu);
 
-        $dcp = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','dcp');
+        $dcp = $document->createElementNS(EPPNamespaces::EPP_1_0,'dcp');
         $greeting->appendChild($dcp);
 
         $this->assertEquals($dcp,$greeting->getDataCollectionPolicy());
@@ -379,7 +380,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPLoginElement $login*/
-        $login = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','login');
+        $login = $document->createElementNS(EPPNamespaces::EPP_1_0,'login');
         $this->assertInstanceOf(EPPLoginElement::class,$login);
 
         $this->assertNull($login->getClientID());
@@ -388,31 +389,31 @@ class EPPElementTest extends TestCase{
         $this->assertNull($login->getOptions());
         $this->assertNull($login->getServices());
 
-        $clID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','clID');
+        $clID = $document->createElementNS(EPPNamespaces::EPP_1_0,'clID');
         $login->appendChild($clID);
 
         $this->assertEquals($clID,$login->getClientID());
         $this->assertInstanceOf(EPPClientIdElement::class,$clID);
 
-        $pw = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','pw');
+        $pw = $document->createElementNS(EPPNamespaces::EPP_1_0,'pw');
         $login->appendChild($pw);
 
         $this->assertEquals($pw,$login->getPassword());
         $this->assertInstanceOf(EPPPasswordElement::class,$pw);
 
-        $newPW = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','newPW');
+        $newPW = $document->createElementNS(EPPNamespaces::EPP_1_0,'newPW');
         $login->appendChild($newPW);
 
         $this->assertEquals($newPW,$login->getNewPassword());
         $this->assertInstanceOf(EPPNewPasswordElement::class,$newPW);
 
-        $options = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','options');
+        $options = $document->createElementNS(EPPNamespaces::EPP_1_0,'options');
         $login->appendChild($options);
 
         $this->assertEquals($options,$login->getOptions());
         $this->assertInstanceOf(EPPOptionsElement::class,$options);
 
-        $svcs = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcs');
+        $svcs = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcs');
         $login->appendChild($svcs);
 
         $this->assertEquals($svcs,$login->getServices());
@@ -423,19 +424,19 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPMessageQueueElement $msgQ*/
-        $msgQ = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msgQ');
+        $msgQ = $document->createElementNS(EPPNamespaces::EPP_1_0,'msgQ');
         $this->assertInstanceOf(EPPMessageQueueElement::class,$msgQ);
 
         $this->assertNull($msgQ->getQueueDate());
         $this->assertNull($msgQ->getMessage());
 
-        $qDate = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','qDate');
+        $qDate = $document->createElementNS(EPPNamespaces::EPP_1_0,'qDate');
         $msgQ->appendChild($qDate);
 
         $this->assertEquals($qDate,$msgQ->getQueueDate());
         $this->assertInstanceOf(EPPQueueDateElement::class,$qDate);
 
-        $msg = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msg');
+        $msg = $document->createElementNS(EPPNamespaces::EPP_1_0,'msg');
         $msgQ->appendChild($msg);
 
         $this->assertEquals($msg,$msgQ->getMessage());
@@ -446,19 +447,19 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPOptionsElement $options*/
-        $options = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','options');
+        $options = $document->createElementNS(EPPNamespaces::EPP_1_0,'options');
         $this->assertInstanceOf(EPPOptionsElement::class,$options);
 
         $this->assertNull($options->getVersion());
         $this->assertNull($options->getLanguage());
 
-        $version = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','version');
+        $version = $document->createElementNS(EPPNamespaces::EPP_1_0,'version');
         $options->appendChild($version);
 
         $this->assertEquals($version,$options->getVersion());
         $this->assertInstanceOf(EPPVersionElement::class,$version);
 
-        $lang = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','lang');
+        $lang = $document->createElementNS(EPPNamespaces::EPP_1_0,'lang');
         $options->appendChild($lang);
 
         $this->assertEquals($lang,$options->getLanguage());
@@ -469,12 +470,12 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPOursElement $ours*/
-        $ours = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','ours');
+        $ours = $document->createElementNS(EPPNamespaces::EPP_1_0,'ours');
         $this->assertInstanceOf(EPPOursElement::class,$ours);
 
         $this->assertNull($ours->getRecipientDescription());
 
-        $recDesc = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','recDesc');
+        $recDesc = $document->createElementNS(EPPNamespaces::EPP_1_0,'recDesc');
         $ours->appendChild($recDesc);
 
         $this->assertEquals($recDesc,$ours->getRecipientDescription());
@@ -485,7 +486,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPPurposeElement $purpose*/
-        $purpose = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','purpose');
+        $purpose = $document->createElementNS(EPPNamespaces::EPP_1_0,'purpose');
         $this->assertInstanceOf(EPPPurposeElement::class,$purpose);
 
         $this->assertNull($purpose->getAdministration());
@@ -493,25 +494,25 @@ class EPPElementTest extends TestCase{
         $this->assertNull($purpose->getOther());
         $this->assertNull($purpose->getProvisioning());
 
-        $admin = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','admin');
+        $admin = $document->createElementNS(EPPNamespaces::EPP_1_0,'admin');
         $purpose->appendChild($admin);
 
         $this->assertEquals($admin,$purpose->getAdministration());
         $this->assertInstanceOf(EPPAdministrationElement::class,$admin);
 
-        $contact = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','contact');
+        $contact = $document->createElementNS(EPPNamespaces::EPP_1_0,'contact');
         $purpose->appendChild($contact);
 
         $this->assertEquals($contact,$purpose->getContact());
         $this->assertInstanceOf(EPPContactElement::class,$contact);
 
-        $other = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','other');
+        $other = $document->createElementNS(EPPNamespaces::EPP_1_0,'other');
         $purpose->appendChild($other);
 
         $this->assertEquals($other,$purpose->getOther());
         $this->assertInstanceOf(EPPOtherElement::class,$other);
 
-        $prov = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','prov');
+        $prov = $document->createElementNS(EPPNamespaces::EPP_1_0,'prov');
         $purpose->appendChild($prov);
 
         $this->assertEquals($prov,$purpose->getProvisioning());
@@ -522,7 +523,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPRecipientElement $recipient*/
-        $recipient = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','recipient');
+        $recipient = $document->createElementNS(EPPNamespaces::EPP_1_0,'recipient');
         $this->assertInstanceOf(EPPRecipientElement::class,$recipient);
 
         $this->assertNull($recipient->getOther());
@@ -531,31 +532,31 @@ class EPPElementTest extends TestCase{
         $this->assertNull($recipient->getSame());
         $this->assertNull($recipient->getUnrelated());
 
-        $other = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','other');
+        $other = $document->createElementNS(EPPNamespaces::EPP_1_0,'other');
         $recipient->appendChild($other);
 
         $this->assertEquals($other,$recipient->getOther());
         $this->assertInstanceOf(EPPOtherElement::class,$other);
 
-        $ours = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','ours');
+        $ours = $document->createElementNS(EPPNamespaces::EPP_1_0,'ours');
         $recipient->appendChild($ours);
 
         $this->assertEquals($ours,$recipient->getOurs()[0]);
         $this->assertInstanceOf(EPPOursElement::class,$ours);
 
-        $public = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','public');
+        $public = $document->createElementNS(EPPNamespaces::EPP_1_0,'public');
         $recipient->appendChild($public);
 
         $this->assertEquals($public,$recipient->getPublic());
         $this->assertInstanceOf(EPPPublicElement::class,$public);
 
-        $same = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','same');
+        $same = $document->createElementNS(EPPNamespaces::EPP_1_0,'same');
         $recipient->appendChild($same);
 
         $this->assertEquals($same,$recipient->getSame());
         $this->assertInstanceOf(EPPSameElement::class,$same);
 
-        $unrelated = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','unrelated');
+        $unrelated = $document->createElementNS(EPPNamespaces::EPP_1_0,'unrelated');
         $recipient->appendChild($unrelated);
 
         $this->assertEquals($unrelated,$recipient->getUnrelated());
@@ -566,7 +567,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPResponseElement $response*/
-        $response = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','response');
+        $response = $document->createElementNS(EPPNamespaces::EPP_1_0,'response');
         $this->assertInstanceOf(EPPResponseElement::class,$response);
 
         $this->assertEmpty($response->getResult());
@@ -575,31 +576,31 @@ class EPPElementTest extends TestCase{
         $this->assertNull($response->getExtension());
         $this->assertNull($response->getTransactionID());
 
-        $result = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','result');
+        $result = $document->createElementNS(EPPNamespaces::EPP_1_0,'result');
         $response->appendChild($result);
 
         $this->assertEquals($result,$response->getResult()[0]);
         $this->assertInstanceOf(EPPResultElement::class,$result);
 
-        $msgQ = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msgQ');
+        $msgQ = $document->createElementNS(EPPNamespaces::EPP_1_0,'msgQ');
         $response->appendChild($msgQ);
 
         $this->assertEquals($msgQ,$response->getMessageQueue());
         $this->assertInstanceOf(EPPMessageQueueElement::class,$msgQ);
 
-        $resData = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','resData');
+        $resData = $document->createElementNS(EPPNamespaces::EPP_1_0,'resData');
         $response->appendChild($resData);
 
         $this->assertEquals($resData,$response->getResponseData());
         $this->assertInstanceOf(EPPResponseDataElement::class,$resData);
 
-        $extension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extension');
+        $extension = $document->createElementNS(EPPNamespaces::EPP_1_0,'extension');
         $response->appendChild($extension);
 
         $this->assertEquals($extension,$response->getExtension());
         $this->assertInstanceOf(EPPExtensionElement::class,$extension);
 
-        $trID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','trID');
+        $trID = $document->createElementNS(EPPNamespaces::EPP_1_0,'trID');
         $response->appendChild($trID);
 
         $this->assertEquals($trID,$response->getTransactionID());
@@ -610,26 +611,26 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPResultElement $result*/
-        $result = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','result');
+        $result = $document->createElementNS(EPPNamespaces::EPP_1_0,'result');
         $this->assertInstanceOf(EPPResultElement::class,$result);
 
         $this->assertNull($result->getMessage());
         $this->assertEmpty($result->getValue());
         $this->assertEmpty($result->getExtensionValue());
 
-        $msg = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','msg');
+        $msg = $document->createElementNS(EPPNamespaces::EPP_1_0,'msg');
         $result->appendChild($msg);
 
         $this->assertEquals($msg,$result->getMessage());
         $this->assertInstanceOf(EPPMessageElement::class,$msg);
 
-        $value = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','value');
+        $value = $document->createElementNS(EPPNamespaces::EPP_1_0,'value');
         $result->appendChild($value);
 
         $this->assertEquals($value,$result->getValue()[0]);
         $this->assertInstanceOf(EPPValueElement::class,$value);
 
-        $extValue = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extValue');
+        $extValue = $document->createElementNS(EPPNamespaces::EPP_1_0,'extValue');
         $result->appendChild($extValue);
 
         $this->assertEquals($extValue,$result->getExtensionValue()[0]);
@@ -640,7 +641,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPRetentionElement $retention*/
-        $retention = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','retention');
+        $retention = $document->createElementNS(EPPNamespaces::EPP_1_0,'retention');
         $this->assertInstanceOf(EPPRetentionElement::class,$retention);
 
         $this->assertNull($retention->getBusiness());
@@ -649,31 +650,31 @@ class EPPElementTest extends TestCase{
         $this->assertNull($retention->getNone());
         $this->assertNull($retention->getStated());
 
-        $business = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','business');
+        $business = $document->createElementNS(EPPNamespaces::EPP_1_0,'business');
         $retention->appendChild($business);
 
         $this->assertEquals($business,$retention->getBusiness());
         $this->assertInstanceOf(EPPBusinessElement::class,$business);
 
-        $indefinite = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','indefinite');
+        $indefinite = $document->createElementNS(EPPNamespaces::EPP_1_0,'indefinite');
         $retention->appendChild($indefinite);
 
         $this->assertEquals($indefinite,$retention->getIndefinite());
         $this->assertInstanceOf(EPPIndefiniteElement::class,$indefinite);
 
-        $legal = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','legal');
+        $legal = $document->createElementNS(EPPNamespaces::EPP_1_0,'legal');
         $retention->appendChild($legal);
 
         $this->assertEquals($legal,$retention->getLegal());
         $this->assertInstanceOf(EPPLegalElement::class,$legal);
 
-        $none = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','none');
+        $none = $document->createElementNS(EPPNamespaces::EPP_1_0,'none');
         $retention->appendChild($none);
 
         $this->assertEquals($none,$retention->getNone());
         $this->assertInstanceOf(EPPNoneElement::class,$none);
 
-        $stated = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','stated');
+        $stated = $document->createElementNS(EPPNamespaces::EPP_1_0,'stated');
         $retention->appendChild($stated);
 
         $this->assertEquals($stated,$retention->getStated());
@@ -684,12 +685,12 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPServiceExtensionElement $svcExtension*/
-        $svcExtension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcExtension');
+        $svcExtension = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcExtension');
         $this->assertInstanceOf(EPPServiceExtensionElement::class,$svcExtension);
 
         $this->assertEmpty($svcExtension->getExtensionURI());
 
-        $extURI = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','extURI');
+        $extURI = $document->createElementNS(EPPNamespaces::EPP_1_0,'extURI');
         $svcExtension->appendChild($extURI);
 
         $this->assertEquals($extURI,$svcExtension->getExtensionURI()[0]);
@@ -700,7 +701,7 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPServiceMenuElement $svcMenu*/
-        $svcMenu = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcMenu');
+        $svcMenu = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcMenu');
         $this->assertInstanceOf(EPPServiceMenuElement::class,$svcMenu);
 
         $this->assertEmpty($svcMenu->getVersion());
@@ -708,25 +709,25 @@ class EPPElementTest extends TestCase{
         $this->assertEmpty($svcMenu->getObjectURI());
         $this->assertNull($svcMenu->getServiceExtension());
 
-        $version = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','version');
+        $version = $document->createElementNS(EPPNamespaces::EPP_1_0,'version');
         $svcMenu->appendChild($version);
 
         $this->assertEquals($version,$svcMenu->getVersion()[0]);
         $this->assertInstanceOf(EPPVersionElement::class,$version);
 
-        $lang = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','lang');
+        $lang = $document->createElementNS(EPPNamespaces::EPP_1_0,'lang');
         $svcMenu->appendChild($lang);
 
         $this->assertEquals($lang,$svcMenu->getLanguage()[0]);
         $this->assertInstanceOf(EPPLanguageElement::class,$lang);
 
-        $objURI = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','objURI');
+        $objURI = $document->createElementNS(EPPNamespaces::EPP_1_0,'objURI');
         $svcMenu->appendChild($objURI);
 
         $this->assertEquals($objURI,$svcMenu->getObjectURI()[0]);
         $this->assertInstanceOf(EPPObjectUriElement::class,$objURI);
 
-        $svcExtension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcExtension');
+        $svcExtension = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcExtension');
         $svcMenu->appendChild($svcExtension);
 
         $this->assertEquals($svcExtension,$svcMenu->getServiceExtension());
@@ -737,19 +738,19 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPServicesElement $svcs*/
-        $svcs = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcs');
+        $svcs = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcs');
         $this->assertInstanceOf(EPPServicesElement::class,$svcs);
 
         $this->assertEmpty($svcs->getObjectURI());
         $this->assertNull($svcs->getServiceExtension());
 
-        $objURI = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','objURI');
+        $objURI = $document->createElementNS(EPPNamespaces::EPP_1_0,'objURI');
         $svcs->appendChild($objURI);
 
         $this->assertEquals($objURI,$svcs->getObjectURI()[0]);
         $this->assertInstanceOf(EPPObjectUriElement::class,$objURI);
 
-        $svcExtension = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svcExtension');
+        $svcExtension = $document->createElementNS(EPPNamespaces::EPP_1_0,'svcExtension');
         $svcs->appendChild($svcExtension);
 
         $this->assertEquals($svcExtension,$svcs->getServiceExtension());
@@ -760,26 +761,26 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPStatementElement $statement*/
-        $statement = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','statement');
+        $statement = $document->createElementNS(EPPNamespaces::EPP_1_0,'statement');
         $this->assertInstanceOf(EPPStatementElement::class,$statement);
 
         $this->assertNull($statement->getPurpose());
         $this->assertNull($statement->getRecipient());
         $this->assertNull($statement->getRetention());
 
-        $purpose = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','purpose');
+        $purpose = $document->createElementNS(EPPNamespaces::EPP_1_0,'purpose');
         $statement->appendChild($purpose);
 
         $this->assertEquals($purpose,$statement->getPurpose());
         $this->assertInstanceOf(EPPPurposeElement::class,$purpose);
 
-        $recipient = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','recipient');
+        $recipient = $document->createElementNS(EPPNamespaces::EPP_1_0,'recipient');
         $statement->appendChild($recipient);
 
         $this->assertEquals($recipient,$statement->getRecipient());
         $this->assertInstanceOf(EPPRecipientElement::class,$recipient);
 
-        $retention = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','retention');
+        $retention = $document->createElementNS(EPPNamespaces::EPP_1_0,'retention');
         $statement->appendChild($retention);
 
         $this->assertEquals($retention,$statement->getRetention());
@@ -790,19 +791,19 @@ class EPPElementTest extends TestCase{
         $document = EPPDocumentHelper::createEPPDocument();
 
         /**@var EPPTransactionIdElement $trID*/
-        $trID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','trID');
+        $trID = $document->createElementNS(EPPNamespaces::EPP_1_0,'trID');
         $this->assertInstanceOf(EPPTransactionIdElement::class,$trID);
 
         $this->assertNull($trID->getClientTransactionID());
         $this->assertNull($trID->getServerTransactionID());
 
-        $clTRID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','clTRID');
+        $clTRID = $document->createElementNS(EPPNamespaces::EPP_1_0,'clTRID');
         $trID->appendChild($clTRID);
 
         $this->assertEquals($clTRID,$trID->getClientTransactionID());
         $this->assertInstanceOf(EPPClientTransactionIdElement::class,$clTRID);
 
-        $svTRID = $document->createElementNS('urn:ietf:params:xml:ns:epp-1.0','svTRID');
+        $svTRID = $document->createElementNS(EPPNamespaces::EPP_1_0,'svTRID');
         $trID->appendChild($svTRID);
 
         $this->assertEquals($svTRID,$trID->getServerTransactionID());

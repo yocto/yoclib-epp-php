@@ -86,7 +86,7 @@ class EPPElementImpl extends Element implements EPPElement {
     }
 
     private static function __getElements(): array{
-        if(!isset(self::$ELEMENTS['urn:ietf:params:xml:ns:epp-1.0'])){
+        if(!isset(self::$ELEMENTS[EPPNamespaces::EPP_1_0])){
             self::$ELEMENTS = array_merge(self::$ELEMENTS,self::getCustomElementsEPP());
         }
         return self::$ELEMENTS;
@@ -99,7 +99,7 @@ class EPPElementImpl extends Element implements EPPElement {
 
     public static function getCustomElementsEPP(): array{
         return [
-            'urn:ietf:params:xml:ns:epp-1.0' => [
+            EPPNamespaces::EPP_1_0 => [
                 'absolute' => EPPAbsoluteElementImpl::class,
                 'access' => EPPAccessElementImpl::class,
                 'admin' => EPPAdministrationElementImpl::class,
