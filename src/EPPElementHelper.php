@@ -37,7 +37,7 @@ class EPPElementHelper{
      * @param mixed ...$content
      * @return EPPMessageElement
      */
-    public static function createEPPMessageElement(Document $document,?string $lang,... $content): EPPMessageElement{
+    public static function createEPPMessageElement(Document $document,?string $lang=null,... $content): EPPMessageElement{
         /**@var EPPMessageElement $messageElement*/
         $messageElement = $document->createElementNS(EPPNamespaces::EPP_1_0,'msg');
         if($lang){
