@@ -33,13 +33,16 @@ class EPPElementHelper{
 
     /**
      * @param Document $document
-     * @param string $lang
-     * @param string|Node $content
+     * @param ?string|null $lang
+     * @param mixed ...$content
      * @return EPPMessageElement
      */
-    public static function createEPPMessageElement(Document $document,string $lang,... $content): EPPMessageElement{
+    public static function createEPPMessageElement(Document $document,?string $lang,... $content): EPPMessageElement{
         /**@var EPPMessageElement $messageElement*/
         $messageElement = $document->createElementNS(EPPNamespaces::EPP_1_0,'msg');
+        if($lang){
+            $messageElement->setAttribute('lang',$lang);
+        }
         if(is_string($content[0] ?? null)){
             $messageElement->textContent = $content;
         }else{
