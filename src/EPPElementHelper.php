@@ -3,12 +3,48 @@ namespace YOCLIB\EPP;
 
 use Wikimedia\IDLeDOM\Document;
 
+use YOCLIB\EPP\Elements\EPPClientTransactionIdElement;
+use YOCLIB\EPP\Elements\EPPCommandElement;
+use YOCLIB\EPP\Elements\EPPEppElement;
+use YOCLIB\EPP\Elements\EPPExtensionElement;
 use YOCLIB\EPP\Elements\EPPExtensionValueElement;
 use YOCLIB\EPP\Elements\EPPMessageElement;
 use YOCLIB\EPP\Elements\EPPResultElement;
 use YOCLIB\EPP\Elements\EPPValueElement;
 
 class EPPElementHelper{
+
+    /**
+     * @param Document $document
+     * @param EPPElement $element
+     * @return EPPEppElement
+     */
+    public static function createEPPElement(Document $document,EPPElement $element): EPPEppElement{
+        /**@var EPPEppElement $eppElement*/
+        $eppElement = $document->createElementNS(EPPNamespaces::EPP_1_0,'epp');
+        $eppElement->appendChild($element);
+        return $eppElement;
+    }
+
+    /**
+     * @param Document $document
+     * @param EPPElement $element
+     * @param ?EPPExtensionElement|null $extension
+     * @param ?EPPClientTransactionIdElement|null $clTRID
+     * @return EPPCommandElement
+     */
+    public static function createEPPCommandElement(Document $document,EPPElement $element,?EPPExtensionElement $extension=null,?EPPClientTransactionIdElement $clTRID=null): EPPCommandElement{
+        /**@var EPPCommandElement $commandElement*/
+        $commandElement = $document->createElementNS(EPPNamespaces::EPP_1_0,'command');
+        $commandElement->appendChild($element);
+        if($extension){
+            $commandElement->appendChild($extension);
+        }
+        if($clTRID){
+            $commandElement->appendChild($clTRID);
+        }
+        return $commandElement;
+    }
 
     /**
      * @param Document $document
