@@ -2,7 +2,7 @@
 namespace YOCLIB\EPP;
 
 use Wikimedia\IDLeDOM\Document;
-use Wikimedia\IDLeDOM\Node;
+
 use YOCLIB\EPP\Elements\EPPExtensionValueElement;
 use YOCLIB\EPP\Elements\EPPMessageElement;
 use YOCLIB\EPP\Elements\EPPResultElement;

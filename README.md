@@ -20,7 +20,7 @@ use YOCLIB\EPP\EPPDocumentHelper;
 use YOCLIB\EPP\Connections\EPPTCPConnection;
 use YOCLIB\EPP\Elements\EPPEppElement;
 
-$conn = new EPPTCPConnection(new SIDNTest());
+$conn = new EPPTCPConnection(new SIDNTest);
 
 $doc = $conn->readDocument();
 
@@ -48,7 +48,7 @@ $epp->appendChild($hello);
 
 $doc->appendChild($epp);
 
-$conn = new EPPTCPConnection(new SIDNTest());
+$conn = new EPPTCPConnection(new SIDNTest);
 
 $xml = $conn->writeDocument($doc);
 ```
