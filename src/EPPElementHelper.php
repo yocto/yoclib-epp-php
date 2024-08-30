@@ -73,14 +73,14 @@ class EPPElementHelper{
      * @param mixed ...$content
      * @return EPPMessageElement
      */
-    public static function createEPPMessageElement(Document $document,?string $lang=null,... $content): EPPMessageElement{
+    public static function createEPPMessageElement(Document $document,?string $lang=null,...$content): EPPMessageElement{
         /**@var EPPMessageElement $messageElement*/
         $messageElement = $document->createElementNS(EPPNamespaces::EPP_1_0,'msg');
         if($lang){
             $messageElement->setAttribute('lang',$lang);
         }
-        if(is_string($content[0] ?? null)){
-            $messageElement->textContent = $content;
+        if(is_string(array_values($content)[0] ?? null)){
+            $messageElement->textContent = array_values($content)[0];
         }else{
             foreach($content AS $node){
                 $messageElement->appendChild($node);
