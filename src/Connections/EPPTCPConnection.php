@@ -2,6 +2,7 @@
 namespace YOCLIB\EPP\Connections;
 
 use RuntimeException;
+
 use YOCLIB\EPP\EPPConnection;
 use YOCLIB\EPP\EPPRegistry;
 
