@@ -10,9 +10,11 @@ class EPPTCPConnection extends EPPBaseConnection implements EPPConnection {
     private $registry;
     private $socket;
 
-    public function __construct(EPPRegistry $registry){
+    public function __construct(EPPRegistry $registry,bool $openDirectly=true){
         $this->registry = $registry;
-        $this->open();
+        if($openDirectly){
+            $this->open();
+        }
     }
 
     /**
