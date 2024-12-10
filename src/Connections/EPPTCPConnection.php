@@ -60,7 +60,7 @@ class EPPTCPConnection extends EPPBaseConnection implements EPPConnection {
     public function open(): bool{
         $host = $this->registry->getHost();
         $hostname = parse_url($host,PHP_URL_SCHEME).'://'.parse_url($host,PHP_URL_HOST);
-        $this->socket = fsockopen($hostname,$this->registry->getPort());
+        $this->socket = fsockopen($hostname,$this->registry->getPort(),$errCode,$errMsg,5);
         return $this->socket!==false;
     }
 
